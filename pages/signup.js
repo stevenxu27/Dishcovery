@@ -1,4 +1,6 @@
-import * as React from "react";
+"use client";
+import "@fontsource/inter";
+import React, { useState } from "react";
 import { CssVarsProvider } from "@mui/joy/styles";
 import Sheet from "@mui/joy/Sheet";
 import Typography from "@mui/joy/Typography";
@@ -7,102 +9,65 @@ import FormLabel from "@mui/joy/FormLabel";
 import Input from "@mui/joy/Input";
 import Button from "@mui/joy/Button";
 import Link from "@mui/joy/Link";
-import { Box } from "@mui/joy";
-import "@fontsource/inter";
 
-export default function SignUp({ switchToLogin }) {
+export default function SignUp({ onClose }) {
   return (
-    <CssVarsProvider>
-      <Sheet
-        sx={{
-          width: 500,
-          mx: "auto", // margin left & right
-          my: 4, // margin top & bottom
-          py: 3, // padding top & bottom
-          px: 2, // padding left & right
-          display: "flex",
-          flexDirection: "column",
-          gap: 2,
-          borderRadius: "sm",
-          boxShadow: "0 0 10px rgb(255, 255, 255)",
-          backgroundColor: "black",
-        }}
-      >
-        {/* title */}
-        <div>
-          <Typography level="h3" component="h1" sx={{ color: "white" }}>
-            Big Back Brochure
-          </Typography>
-          <Typography level="body-sm" sx={{ color: "white" }}>
-            Sign up to join us!
-          </Typography>
+    <>
+      {/* <div className="fixed w-[100vw] h-[100vh] backdrop-blur-md brightness-75 z-[40] transition-all duration-500 ease-in-out"></div>
+
+      <div className="fixed z-[50] w-[100vw] h-[100vh] flex-col flex items-center top-0 justify-center animate-fadeIn">
+        <div className="backdrop-blur-sm bg-white/90 rounded-[1rem] h-fit w-fit flex flex-col gap-[1rem] px-[4rem] py-[2rem] animate-scaleIn shadow-xl">
+          <button
+            className="absolute top-0 right-0 p-4 min-w-[3rem] min-h-[3rem] flex items-center justify-center hover:bg-gray-100 rounded-tr-[1rem] transition-all duration-300"
+            onClick={onClose}
+          >
+            <h4>×</h4>
+          </button>
+          <img
+            src="/static/Images/watermelon.png"
+            alt="burger"
+            className="w-[8rem] h-[8rem] mx-auto animate-float"
+          />
+          <h3 className="text-black text-2xl font-semibold text-center">
+            Sign Up
+          </h3>
+          <FormControl>
+            <FormLabel>Full Name</FormLabel>
+            <Input
+              name="name"
+              type="text"
+              placeholder="John Doe"
+              sx={{ mb: 2 }}
+            />
+          </FormControl>
+          <FormControl>
+            <FormLabel>Email</FormLabel>
+            <Input
+              name="email"
+              type="email"
+              placeholder="johndoe@email.com"
+              sx={{ mb: 2 }}
+            />
+          </FormControl>
+          <FormControl>
+            <FormLabel>Password</FormLabel>
+            <Input
+              name="password"
+              type="password"
+              placeholder="Password"
+              sx={{ mb: 2 }}
+            />
+          </FormControl>
+          <Button
+            variant="solid"
+            color="primary"
+            className="w-full mt-2"
+            onClick={onClose}
+          >
+            Create Account
+          </Button>
         </div>
-
-        {/* form */}
-        <Box sx={{ display: "flex", gap: 1 }}>
-          {" "}
-          {/* Added gap prop */}
-          <FormControl sx={{ flex: 1 }}>
-            <FormLabel sx={{ color: "white" }}>First Name</FormLabel>
-            <Input
-              name="firstName"
-              type="text"
-              placeholder="Enter your first name"
-              sx={{ color: "#adb5bd" }}
-            />
-          </FormControl>
-          <FormControl sx={{ flex: 1 }}>
-            <FormLabel sx={{ color: "white" }}>Last Name</FormLabel>
-            <Input
-              name="lastName"
-              type="text"
-              placeholder="Enter your last name"
-              sx={{ color: "#adb5bd" }}
-            />
-          </FormControl>
-        </Box>
-
-        <FormControl>
-          <FormLabel sx={{ color: "white" }}>Email</FormLabel>
-          <Input
-            name="email"
-            type="email"
-            placeholder="johndoe@email.com"
-            sx={{ color: "#adb5bd" }}
-          />
-        </FormControl>
-
-        <FormControl>
-          <FormLabel sx={{ color: "white" }}>Password</FormLabel>
-          <Input
-            name="password"
-            type="password"
-            placeholder="Password"
-            sx={{ color: "#adb5bd" }}
-          />
-        </FormControl>
-
-        <Button sx={{ mt: 1, boxShadow: "0 0 10px 5px rgba(255,255,255)" }}>
-          Sign up
-        </Button>
-        <Typography
-          endDecorator={
-            <Link
-              onClick={switchToLogin}
-              sx={{ color: "#2fa8fe", cursor: "pointer" }}
-            >
-              Log in
-            </Link>
-          }
-          fontSize="sm"
-          sx={{
-            alignSelf: "center",
-            color: "white",
-          }}
-        >
-          Already have an account?
-        </Typography>
-      </Sheet>
-    </CssVarsProvider>
+      </div> */}
+    </>
   );
 }
