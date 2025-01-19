@@ -31,21 +31,48 @@ module.exports = {
           "100%": { transform: "scale(1)" },
         },
         scroll: {
-          '0%': { transform: 'translateX(0)' },
-          '100%': { transform: 'translateX(-50%)' },
+          "0%": { transform: "translateX(0)" },
+          "100%": { transform: "translateX(-50%)" },
         },
         pulse: {
-          '0%, 100%': { transform: 'scale(1)' },
-          '50%': { transform: 'scale(1.05)' }
-        }
+          "0%, 100%": { transform: "scale(1)" },
+          "50%": { transform: "scale(1.05)" },
+        },
+        fadeIn: {
+          "0%": { opacity: "0" },
+          "100%": { opacity: "1" },
+        },
+        slideFromTop: {
+          "0%": {
+            transform: "translateY(-100%)",
+            opacity: "0",
+          },
+          "100%": {
+            transform: "translateY(0)",
+            opacity: "1",
+          },
+        },
+        scaleIn: {
+          "0%": { transform: "scale(0.9) translateY(10px)", opacity: "0" },
+          "100%": { transform: "scale(1) translateY(0)", opacity: "1" },
+        },
+        slideIn: {
+          "0%": { transform: "translateY(20px)", opacity: "0" },
+          "100%": { transform: "translateY(0)", opacity: "1" },
+        },
       },
       animation: {
         spring: "spring 0.5s cubic-bezier(0.2, 0.8, 0.4, 1.2)",
-        'scroll-slow': 'scroll 25s linear infinite',
-        'pulse-slow': 'pulse 4s ease-slowEase infinite',
+        "scroll-slow": "scroll 25s linear infinite",
+        "pulse-slow": "pulse 4s ease-slowEase infinite",
+        fadeIn: "fadeIn 0.4s ease-slowEase forwards",
+        scaleIn: "scaleIn 0.6s ease-slowEase forwards",
+        slideIn: "slideIn 0.4s ease-slowEase forwards",
+        slideFromTop: "slideFromTop 0.6s ease-slowEase forwards",
       },
       backgroundImage: {
-        'dark-gradient': 'linear-gradient(to bottom, #000000, #000000, #111827)',
+        "dark-gradient":
+          "linear-gradient(to bottom, #000000, #000000, #111827)",
       },
     },
   },
