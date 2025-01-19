@@ -4,21 +4,15 @@ import Login from "./login";
 import SignUp from "./signup";
 import FoodContainer from "../components/FoodContainer";
 import { useResistiveScroll } from "../hooks/useResistiveScroll";
-import { useResistiveScroll } from "../hooks/useResistiveScroll";
 import Navbar from "../components/Navbar";
 
 import React, { useState } from "react";
 
 export default function Home() {
   useResistiveScroll();
-  useResistiveScroll();
   const [active, setActive] = useState(false);
   const [menuItems, setMenuItems] = useState([]);
   const [droppedImage, setDroppedImage] = useState(null);
-
-  const scrollToTop = () => {
-    window.dispatchEvent(new CustomEvent("resetScroll"));
-  };
 
   const scrollToTop = () => {
     window.dispatchEvent(new CustomEvent("resetScroll"));
@@ -132,13 +126,21 @@ export default function Home() {
                 Sign Up
               </button>
             </div> */}
+            <button
+              className={`py-2 px-4 rounded z-50 
+    ${
+      droppedImage
+        ? "bg-blue-500 text-white"
+        : "bg-transparent text-blue-500 border border-blue-500"
+    }
+    ${!droppedImage && "cursor-not-allowed"}`}
+              onClick={handleUpload}
+              disabled={!droppedImage}
+            >
+              Upload
+            </button>
           </div>
         </div>
-
-        {showLogin && <Login onClose={() => setShowLogin(false)} />}
-        {showSignUp && <SignUp onClose={() => setShowSignUp(false)} />}
-        {showLogin && <Login onClose={() => setShowLogin(false)} />}
-        {showSignUp && <SignUp onClose={() => setShowSignUp(false)} />}
 
         <section className="flex flex-row w-[99vw] relative bottom-0 mt-[25vh] overflow-hidden">
           <div className="flex animate-scroll-slow gap-[2rem] whitespace-nowrap">
@@ -160,17 +162,16 @@ export default function Home() {
                 />
               ))}
             </div>
-              ))}
-            </div>
+            {/* ))} */}
 
-            <div className="flex gap-[2rem]">
+            {/* <div className="flex gap-[2rem]">
               {[
                 "Eggplant",
                 "croisssant",
                 "doughnut",
                 "Gummi",
                 "watermelon",
-              ].map((image, index) => (
+              ].map((image, index) => ( */}
             <div className="flex gap-[2rem]">
               {[
                 "Eggplant",
@@ -213,7 +214,7 @@ export default function Home() {
               menuItems.map((item, index) => (
                 <FoodContainer
                   key={index}
-                  vegImage=""
+                  vegImage={item.vegImage}
                   Name={item.name}
                   Price={item.price}
                   Description={item.description}
