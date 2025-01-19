@@ -200,7 +200,7 @@ export default function Home() {
               {menuItems.map((item, index) => (
                 <FoodContainer
                   key={index}
-                  vegImage=""
+                  vegImage={item.vegImage}
                   Name={item.name}
                   Price={item.price}
                   Description={item.description}

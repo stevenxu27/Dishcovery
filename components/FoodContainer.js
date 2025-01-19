@@ -12,7 +12,7 @@ function FoodContainer({ vegImage, Name, Price, Description, altText }) {
         <div className="shadow-2xl w-[22rem] min-h-[60vh] rounded-[1rem] p-[24px] flex flex-col gap-[1rem] bg-white z-[10]">
           <div className=" flex justify-center items-center">
             <img
-              src="https://assets.tmecosys.com/image/upload/t_web767x639/img/recipe/ras/Assets/547d98d9-0e88-409f-90ab-51a9cae35bba/Derivates/7b1d49bd-ad43-48ac-b182-920e686feb71.jpg"
+              src={vegImage}
               alt={altText}
               width={100}
               height={100}

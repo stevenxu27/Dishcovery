@@ -3,6 +3,7 @@ import Replicate from "replicate";
 import dotenv from "dotenv";
 import OpenAI from "openai";
 import cors from "cors";
+import axios from "axios";
 
 dotenv.config();
 
@@ -14,6 +15,26 @@ const replicateObject = new Replicate({
   auth: process.env.REPLICATE_API_TOKEN,
   userAgent: 'https://www.npmjs.com/package/create-replicate'
 });
+
+async function getDishImage(dishName) {
+  try {
+    const response = await axios.get('https://api.spoonacular.com/recipes/complexSearch', {
+      params: {
+        query: dishName,
+        number: 1,
+        apiKey: process.env.SPOONACULAR_API_KEY
+      }
+    });
+
+    if (response.data.results && response.data.results.length > 0) {
+      return response.data.results[0].image;
+    }
+    return null;
+  } catch (error) {
+    console.error(`Error fetching image for ${dishName}:`, error);
+    return null;
+  }
+}
 
 app.post('/api/upload-menu', async (req, res) => {
   try {
@@ -33,9 +54,9 @@ app.post('/api/upload-menu', async (req, res) => {
           role: 'system',
           content: `You are a menu parser that first translates menus into English, then converts menu text into structured JSON data. 
                    For each menu item, extract:
-                   - name 
+                   - the dish name in simple english
                    - price 
-                   - description
+                   - description in english
                    Format the response as a JSON array of menu items.
                    Example format:
                    {
@@ -75,16 +96,22 @@ app.post('/api/upload-menu', async (req, res) => {
     }
 
     // Add any missing fields and validate data
-    const processedMenuItems = (menuData.menuItems || []).map(item => ({
-      ...item,
-      vegImage: item.vegImage || "/api/placeholder/400/400",
-      altText: item.altText || `Image of ${item.name}`,
+    const processedMenuItems = await Promise.all((menuData.menuItems || []).map(async (item) => {
+      const imageUrl = await getDishImage(item.name);
+      return {
+        ...item,
+        vegImage: imageUrl || "https://cdn3d.iconscout.com/3d/premium/thumb/fast-food-3d-illustration-download-in-png-blend-fbx-gltf-file-formats--junk-burger-cheeseburger-menu-pack-drink-illustrations-4800414.png?f=webp",
+        altText: `Image of ${item.name}`,
+      };
     }));
+
+    console.log(processedMenuItems);
 
     res.json({
       success: true,
       menuItems: processedMenuItems
     });
+
 
   } catch (error) {
     console.error('Error:', error);
