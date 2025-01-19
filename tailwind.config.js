@@ -17,8 +17,8 @@ module.exports = {
         // "in-expo": "cubic-bezier(0.95, 0.05, 0.795, 0.035)",
         // "out-expo": "cubic-bezier(0.19, 1, 0.22, 1)",
         slowEase: "cubic-bezier(0.7, 0, 0.2, 1)",
-        fastEast: "cubic-bezier(0.62, 0.61, 0.02, 1)",
-        fastfastEast: "cubic-bezier(0.5,0,0,1)",
+        fastEase: "cubic-bezier(0.62, 0.61, 0.02, 1)",
+        fastfastEase: "cubic-bezier(0.5,0,0,1)",
       },
       transitionProperty: {
         width: "width",

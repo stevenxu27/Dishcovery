@@ -1,36 +1,32 @@
-import dotenv from 'dotenv'; // ES Module syntax for dotenv
-import { MongoClient } from 'mongodb'; // ES Module syntax for MongoDB client
+import dotenv from 'dotenv';
+import { MongoClient } from 'mongodb';
+import { EventEmitter } from 'events'; // Import EventEmitter
 
-dotenv.config(); // Load environment variables from .env (no change here)
+dotenv.config();
 
-// Replace with your MongoDB URI
 const uri = process.env.MONGODB_URI || 'mongodb+srv://mongo:mongo@audiosamples.oot7o.mongodb.net/';
+const eventEmitter = new EventEmitter(); // Create an event emitter
 
-// MongoDB client initialization
 async function connectToMongoDB() {
   const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true });
   try {
-    // Connect to MongoDB
     await client.connect();
     console.log('Connected to MongoDB');
 
-    // Access your database and collection
-    const db = client.db('your_database_name');
-    const collection = db.collection('your_collection_name');
+    const db = client.db('audio_samples');
+    const collection = db.collection('audio_samples');
 
-    // Set up a change stream to listen for changes
     const changeStream = collection.watch();
-
     console.log('Watching for changes...');
 
-    // Event listener for change events
     changeStream.on('change', (change) => {
       console.log('Change detected:', change);
-      // Add your custom logic here to handle the change
-      // For example, pulling new data and processing it
+
       if (change.operationType === 'insert') {
         console.log('New document inserted:', change.fullDocument);
-        // You can process the newly inserted data here
+
+        // Emit an event with the new document
+        eventEmitter.emit('newDocument', change.fullDocument);
       }
     });
 
@@ -39,5 +35,7 @@ async function connectToMongoDB() {
   }
 }
 
-// Start the script
+// Start the MongoDB connection
 connectToMongoDB();
+
+export { eventEmitter }; // Export the event emitter
