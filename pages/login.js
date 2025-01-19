@@ -11,50 +11,56 @@ import Link from "@mui/joy/Link";
 
 export default function Login({ onClose }) {
   return (
-    <div className="fixed z-[20] w-[100vw] h-[100vh] flex-col flex items-center top-0 justify-center animate-fadeIn">
-      <div className="backdrop-blur-sm bg-white rounded-[1rem] h-fit w-fit flex flex-col gap-[1rem] px-[4rem] py-[2rem] animate-scaleIn">
-        <button
-          className="absolute top-0 right-0 p-[1rem] h-fit w-fit border-2 border-black bg-red-700
+    <>
+      <div className=" fixed w-[100vw] h-[100vh] backdrop-blur-md brightness-[0.8]"></div>
+      <div className="fixed z-[20] w-[100vw] h-[100vh] flex-col flex items-center top-0 justify-center animate-fadeIn">
+        <div className="backdrop-blur-sm bg-white rounded-[1rem] h-fit w-fit flex flex-col gap-[1rem] px-[4rem] py-[2rem] animate-scaleIn">
+          <button
+            className="absolute top-0 right-0 p-[1rem] h-fit w-fit
         }"
-          onClick={onClose}
-        >
-          <h4>x</h4>
-        </button>
-        <img src="/static/Images/watermelon.png" alt="burger" />
-        <h5 className="text-black">Login</h5>
-        <p className="text-black relative top-0 h-fit w-fit">
-          {" "}
-          Enter your email
-        </p>
-        <Input
-          // html input attribute
-          name="email"
-          type="email"
-          placeholder="johndoe@email.com"
-          sx={{ color: "#adb5bd" }}
-        />
-        <p className="text-black relative top-0 h-fit w-fit">
-          {" "}
-          Enter your password
-        </p>
+            onClick={onClose}
+          >
+            <h4>x</h4>
+          </button>
+          <img
+            src="/static/Images/watermelon.png"
+            alt="burger"
+            className="w-[15rem] h-[15rem] animate-bounce"
+          />
+          <h5 className="text-black">Login</h5>
+          <p className="text-black relative top-0 h-fit w-fit">
+            {" "}
+            Enter your email
+          </p>
+          <Input
+            // html input attribute
+            name="email"
+            type="email"
+            placeholder="johndoe@email.com"
+            sx={{ color: "#adb5bd" }}
+          />
+          <p className="text-black relative top-0 h-fit w-fit">
+            {" "}
+            Enter your password
+          </p>
 
-        <Input
-          name="password"
-          type="password"
-          placeholder="Password"
-          sx={{ color: "#adb5bd" }}
-        />
-        <p className="text-black relative top-0 h-fit w-fit">
-          You have no menu selected yet.
-        </p>
-        <button
-          className="rounded-full px-[2rem] py-[1rem] backdrop-blur-sm text-black bg-gray-800 bg-opacity-[0.1] hover:bg-opacity-[0.2] transition-all duration-[800ms] ease-slowEase"
-          onClick={onClose}
-        >
-          <p className="text-black mix-blend-normal">Upload Menu</p>
-        </button>
-      </div>
-      {/* <div className="rounded-[1rem]">
+          <Input
+            name="password"
+            type="password"
+            placeholder="Password"
+            sx={{ color: "#adb5bd" }}
+          />
+          <p className="text-black relative top-0 h-fit w-fit">
+            You have no menu selected yet.
+          </p>
+          <button
+            className="rounded-full px-[2rem] py-[1rem] backdrop-blur-sm text-black bg-gray-800 bg-opacity-[0.1] hover:bg-opacity-[0.2] transition-all duration-[800ms] ease-slowEase"
+            onClick={onClose}
+          >
+            <p className="text-black mix-blend-normal">Upload Menu</p>
+          </button>
+        </div>
+        {/* <div className="rounded-[1rem]">
         <CssVarsProvider>
           <Sheet
             sx={{
@@ -130,6 +136,7 @@ export default function Login({ onClose }) {
           Close
         </button>
       </div> */}
-    </div>
+      </div>
+    </>
   );
 }
