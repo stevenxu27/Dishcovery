@@ -1,16 +1,3 @@
-# Get the database using the method we defined in pymongo_test_insert file
-from audio_database import get_database
-dbname = get_database()
-# collection_name = dbname["audio_samples"]
-
-# audio_sample_1= {
-#   "item_name" : "Bread",
-#   "quantity" : 2,
-#   "ingredients" : "all-purpose flour",
-#   "expiry_date" : 2
-# }
-# collection_name.insert_one(audio_sample_1)
-
 import sounddevice as sd
 import wavio
 
@@ -35,6 +22,6 @@ def record_audio(duration, filename, sample_rate=44100):
 
 if __name__ == "__main__":
     duration = 5  # Duration in seconds
-    filename = "output.wav"  # Output file name
+    filename = "input_audio.wav"  # Output file name
     record_audio(duration, filename)
         
