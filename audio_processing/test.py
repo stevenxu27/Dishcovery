@@ -37,3 +37,4 @@ if __name__ == "__main__":
     duration = 5  # Duration in seconds
     filename = "output.wav"  # Output file name
     record_audio(duration, filename)
+        
