@@ -155,7 +155,7 @@ export default function Home() {
               <button className="bg-white w-fit h-fit"> + </button>
             </div>
           </div>
-          <div className="flex flex-row justify-between w-[80vw] items-center ">
+          {/* <div className="flex flex-row justify-between w-[80vw] items-center ">
             <div className="flex-col flex gap-[1rem] slowEase h-full duration-[800ms] transition-all">
               <FoodContainer
                 vegImage="/static/Images/Veggie.png"
@@ -185,7 +185,7 @@ export default function Home() {
                 Description="A mix of vegetables and tomatoes"
                 altText="menu"
               />
-            </div>
+            </div> */}
 
             <div className="flex-col flex gap-[1rem] h-full slowEase duration-[800ms] transition-all">
               {/* <FoodContainer
@@ -208,7 +208,6 @@ export default function Home() {
                 />
               ))}
             </div>
-          </div>
         </section>
       </div>
     </div>
