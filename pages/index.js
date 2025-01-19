@@ -102,7 +102,7 @@ export default function Home() {
           >
             <h2 className="animate-spring" id="home">
               {" "}
-              Welcome!{" "}
+              Welcome to Dishcover!{" "}
             </h2>
             <p className="animate-spring delay-100">
               Let's start by uploading your menu.
