@@ -13,6 +13,10 @@ export default function Home() {
   const [menuItems, setMenuItems] = useState([]);
   const [droppedImage, setDroppedImage] = useState(null);
 
+  const scrollToTop = () => {
+    window.dispatchEvent(new CustomEvent("resetScroll"));
+  };
+
   const handleUpload = async () => {
     try {
       const response = await fetch("http://localhost:8000/api/upload-menu", {
@@ -24,6 +28,7 @@ export default function Home() {
 
       const data = await response.json();
       setMenuItems(data.menuItems);
+      scrollToTop();
     } catch (error) {
       console.error("Error uploading menu:", error);
     }
@@ -53,17 +58,20 @@ export default function Home() {
   return (
     <div className="w-[100vw] min-h-[100vh] fixed">
       <div className="fixed bg-dark-gradient w-[99vw] h-[100vh] z-[-10] top-0"></div>
-      <Navbar />
+      <Navbar setShowLogin={setShowLogin} setShowSignUp={setShowSignUp} />
       <div className="smooth-scroll-container">
         <div
-          className={`h-[60vh] flex flex-col justify-between slowEase duration-[800ms] transition-all pt-[9rem]
+          className={`h-[60vh] flex flex-col justify-between slowEase duration-[800ms] transition-all pt-[9rem] 
           ${active ? "pt-[8rem]" : "pt-[3rem]"}`}
         >
           <div
             className={`flex flex-col gap-[0.5rem] justify-center items-center text-white slowEase duration-[800ms] transition-all 
               `}
           >
-            <h2 className="animate-spring"> Welcome! </h2>
+            <h2 className="animate-spring" id="home">
+              {" "}
+              Welcome!{" "}
+            </h2>
             <p className="animate-spring delay-100">
               Let's start by uploading your menu.
             </p>
@@ -78,7 +86,11 @@ export default function Home() {
               onDrop={handleDrop}
             >
               {droppedImage ? (
-                <img src={droppedImage} alt="Dropped" className="w-[12rem] h-full object-cover rounded-[1rem]" />
+                <img
+                  src={droppedImage}
+                  alt="Dropped"
+                  className="w-[12rem] h-full object-cover rounded-[1rem]"
+                />
               ) : (
                 <div className="flex flex-col justify-center items-center relative">
                   <h2 className="text-[2.5rem] transition-transform duration-[800ms] ease-slowEase">
@@ -86,8 +98,8 @@ export default function Home() {
                   </h2>
                   <p
                     className={`absolute ease-slowEase transition-all duration-[2400ms] ${active
-                        ? "opacity-0 translate-y-4 mt-[5rem]"
-                        : "opacity-100 translate-y-0 mt-[5rem]"
+                      ? "opacity-0 translate-y-4 mt-[5rem]"
+                      : "opacity-100 translate-y-0 mt-[5rem]"
                       }`}
                   >
                     {/* ¨This is where drop your item would go */}
@@ -97,11 +109,10 @@ export default function Home() {
             </div>
 
             <button
-              className={`py-2 px-4 z-50 rounded transition-all duration-300 ${
-                droppedImage
-                  ? "bg-blue-500 text-white"
-                  : "bg-transparent border border-blue-500 text-blue-500 cursor-not-allowed"
-              }`}
+              className={`py-2 px-4 z-50 rounded transition-all duration-300 ${droppedImage
+                ? "bg-blue-500 text-white"
+                : "bg-transparent border border-blue-500 text-blue-500 cursor-not-allowed"
+                }`}
               onClick={handleUpload}
               disabled={!droppedImage} // Disable the button if no image is present
             >
@@ -128,6 +139,8 @@ export default function Home() {
 
         {showLogin && <Login onClose={() => setShowLogin(false)} />}
         {showSignUp && <SignUp onClose={() => setShowSignUp(false)} />}
+        {showLogin && <Login onClose={() => setShowLogin(false)} />}
+        {showSignUp && <SignUp onClose={() => setShowSignUp(false)} />}
 
         <section className="flex flex-row w-[99vw] relative bottom-0 mt-[25vh] overflow-hidden">
           <div className="flex animate-scroll-slow gap-[2rem] whitespace-nowrap">
@@ -149,41 +162,81 @@ export default function Home() {
                 />
               ))}
             </div>
-
-            <div className="flex gap-[2rem]">
-              {[
-                "Eggplant",
-                "croisssant",
-                "doughnut",
-                "Gummi",
-                "watermelon",
-              ].map((image, index) => (
-                <img
-                  key={`dup-${index}`}
-                  src={`/static/Images/${image}.png`}
-                  alt="menu"
-                  width={100}
-                  height={100}
-                  className="w-[20%] h-fit min-w-[14.2vw] hover:animate-pulse-slow transition-all duration-[800ms] ease-slowEase"
-                />
-              ))}
-            </div>
           </div>
+
+          {/* <div className="flex gap-[2rem]">
+            {[
+              "Eggplant",
+              "croisssant",
+              "doughnut",
+              "Gummi",
+              "watermelon",
+            ].map((image, index) => (
+              <div className="flex gap-[2rem]">
+                {[
+                  "Eggplant",
+                  "croisssant",
+                  "doughnut",
+                  "Gummi",
+                  "watermelon",
+                ].map((image, index) => (
+                  <img
+                    key={`dup-${index}`}
+                    src={`/static/Images/${image}.png`}
+                    alt="menu"
+                    width={100}
+                    height={100}
+                    className="w-[20%] h-fit min-w-[14.2vw] hover:animate-pulse-slow transition-all duration-[800ms] ease-slowEase"
+                  />
+                ))}
+              </div>
+          </div> */}
         </section>
 
-        <section className="h-[100vh] w-[100vw] flex flex-col justify-center mt-[30rem] gap-[5rem] items-center">
+        <section
+          className={`h-[100vh] w-[100vw] flex flex-col justify-center gap-[5rem] items-center slowEase duration-[800ms] transition-all
+          ${menuItems.length > 0 ? "mt-[35rem]" : "mt-[10rem]"}`}
+        >
           <div className="flex-col  text-white text-left  w-[80vw] flex gap-[1rem]">
             <h3 className="text-left">Welcome to Burger King</h3>
             <p>
               We are a fast food restaurant that serves burgers, fries, and
               other fast food items.
             </p>
-            <div className="flex flex-row gap-[1rem]">
+            {/* <div className="flex flex-row gap-[1rem]">
               <button className="bg-white w-fit h-fit"> + </button>
               <button className="bg-white w-fit h-fit"> + </button>
-            </div>
+            </div> */}
           </div>
 
+          <div className="flex flex-row gap-[1rem] w-[80vw] flex-1 flex-wrap">
+            {menuItems.length > 0 ? (
+              menuItems.map((item, index) => (
+                <FoodContainer
+                  key={index}
+                  vegImage=""
+                  Name={item.name}
+                  Price={item.price}
+                  Description={item.description}
+                  altText={item.altText}
+                />
+              ))
+            ) : (
+              <div className=" backdrop-blur-sm bg-gray-900/50 p-[1rem] rounded-[1rem] h-fit w-fit flex flex-col gap-[1rem]">
+                <img src="/static/Images/watermelon.png" alt="burger" />
+                <h3 className="text-white">Uh oh!</h3>
+                <p className="text-white relative top-0 h-fit w-fit">
+                  You have no menu selected yet.
+                </p>
+                <button
+                  onClick={scrollToTop}
+                  className="rounded-full px-[2rem] py-[1rem] backdrop-blur-sm text-white bg-gray-800 bg-opacity-[0.1] hover:bg-opacity-[0.2] transition-all duration-[800ms] ease-slowEase"
+                >
+                  <p className="text-white mix-blend-normal">Upload Menu</p>
+                </button>
+              </div>
+            )}
+          </div>
           <div className="flex-col flex gap-[1rem] h-full slowEase duration-[800ms] transition-all">
             <FoodContainer
               vegImage="/static/Images/Veggie.png"
