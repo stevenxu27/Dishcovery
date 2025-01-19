@@ -5,7 +5,6 @@ import SignUp from "./signup";
 import FoodContainer from "../components/FoodContainer";
 import { useResistiveScroll } from "../hooks/useResistiveScroll";
 import Navbar from "../components/Navbar";
-
 import React, { useState } from "react";
 
 export default function Home() {
@@ -77,7 +76,6 @@ export default function Home() {
                 hover:bg-opacity-60 animate-pulse rounded-[100%] py-[1rem] px-[1.75rem] mt-[0]  hover:rounded-[2rem] hover:py-[8rem] hover:px-[8rem] hover:mt-[2rem]`}
               onDragOver={handleDragOver}
               onDrop={handleDrop}
-              onClick={handleUpload}
             >
               {droppedImage ? (
                 <img src={droppedImage} alt="Dropped" className="w-[12rem] h-full object-cover rounded-[1rem]" />
@@ -87,11 +85,10 @@ export default function Home() {
                     +
                   </h2>
                   <p
-                    className={`absolute ease-slowEase transition-all duration-[2400ms] ${
-                      active
+                    className={`absolute ease-slowEase transition-all duration-[2400ms] ${active
                         ? "opacity-0 translate-y-4 mt-[5rem]"
                         : "opacity-100 translate-y-0 mt-[5rem]"
-                    }`}
+                      }`}
                   >
                     {/* ¨This is where drop your item would go */}
                   </p>
@@ -99,7 +96,17 @@ export default function Home() {
               )}
             </div>
 
-            
+            <button
+              className={`py-2 px-4 z-50 rounded transition-all duration-300 ${
+                droppedImage
+                  ? "bg-blue-500 text-white"
+                  : "bg-transparent border border-blue-500 text-blue-500 cursor-not-allowed"
+              }`}
+              onClick={handleUpload}
+              disabled={!droppedImage} // Disable the button if no image is present
+            >
+              Upload Menu
+            </button>
 
             {/* <div className="flex flex-row gap-[1rem] text-my-gray">
               <button
@@ -187,17 +194,17 @@ export default function Home() {
               altText="menu"
             />
 
-              {menuItems.map((item, index) => (
-                <FoodContainer
-                  key={index}
-                  vegImage={item.vegImage}
-                  Name={item.name}
-                  Price={item.price}
-                  Description={item.description}
-                  altText={item.altText}
-                />
-              ))}
-            </div>
+            {menuItems.map((item, index) => (
+              <FoodContainer
+                key={index}
+                vegImage={item.vegImage}
+                Name={item.name}
+                Price={item.price}
+                Description={item.description}
+                altText={item.altText}
+              />
+            ))}
+          </div>
         </section>
       </div>
     </div>
