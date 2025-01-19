@@ -1,11 +1,8 @@
 "use client";
 
-import Login from "./login";
-import SignUp from "./signup";
 import FoodContainer from "../components/FoodContainer";
 import { useResistiveScroll } from "../hooks/useResistiveScroll";
 import Navbar from "../components/Navbar";
-import  *  as  Realm  from  "realm-web";
 
 import React, { useState, useEffect } from "react";
 
@@ -14,6 +11,32 @@ export default function Home() {
   const [active, setActive] = useState(false);
   const [menuItems, setMenuItems] = useState([]);
   const [droppedImage, setDroppedImage] = useState(null);
+  const [document, setDocument] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+  useEffect(() => {
+    const fetchDocument = async () => {
+      try {
+        const res = await fetch('/api/db'); // Fetch from the API route
+
+        // Check if the response status is OK (200)
+        if (!res.ok) {
+          throw new Error(`HTTP error! Status: ${res.status}`);
+        }
+
+        const data = await res.json(); // Parse the response as JSON
+        setDocument(data); // Store the fetched documents
+      } catch (err) {
+        console.error('Failed to fetch document:', err);
+        setError(err.message); // Store the error message
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchDocument(); // Fetch the document on component mount
+  }, []);
 
   const scrollToTop = () => {
     window.dispatchEvent(new CustomEvent("resetScroll"));
@@ -196,7 +219,7 @@ export default function Home() {
 
         <section
           className={`h-[100vh] w-[100vw] flex flex-col justify-center gap-[5rem] items-center slowEase duration-[800ms] transition-all
-          ${menuItems.length > 0 ? "mt-[35rem]" : "mt-[10rem]"}`}
+          ${menuItems ? "mt-[35rem]" : "mt-[10rem]"}`}
         >
           <div className="flex-col  text-white text-left  w-[80vw] flex gap-[1rem]">
             <h3 className="text-left">Welcome to Burger King</h3>
@@ -211,7 +234,7 @@ export default function Home() {
           </div>
 
           <div className="flex flex-row gap-[1rem] w-[80vw] flex-1 flex-wrap">
-            {menuItems.length > 0 ? (
+            {menuItems ? (
               menuItems.map((item, index) => (
                 <FoodContainer
                   key={index}
@@ -236,6 +259,17 @@ export default function Home() {
                   <p className="text-white mix-blend-normal">Upload Menu</p>
                 </button>
               </div>
+            )}
+          </div>
+
+          <div style={{ color: 'white', fontSize: '20px' }}>
+            <h2 style={{ fontSize: '24px', color: 'white' }}>Latest Documents:</h2>
+            {loading ? (
+              <p style={{ color: 'white' }}>Loading...</p>
+            ) : (
+              <pre style={{ color: 'white', fontSize: '18px' }}>
+                {JSON.stringify(document, null, 2)} {/* Display stored document as JSON */}
+              </pre>
             )}
           </div>
         </section>
