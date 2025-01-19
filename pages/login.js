@@ -11,8 +11,56 @@ import Link from "@mui/joy/Link";
 
 export default function Login({ onClose }) {
   return (
-    <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center">
-      <div className="bg-gray-900 p-8 rounded-lg">
+    <>
+      <div className=" fixed w-[100vw] h-[100vh] backdrop-blur-md brightness-[0.8]"></div>
+      <div className="fixed z-[20] w-[100vw] h-[100vh] flex-col flex items-center top-0 justify-center animate-fadeIn">
+        <div className="backdrop-blur-sm bg-white rounded-[1rem] h-fit w-fit flex flex-col gap-[1rem] px-[4rem] py-[2rem] animate-scaleIn">
+          <button
+            className="absolute top-0 right-0 p-[1rem] h-fit w-fit
+        }"
+            onClick={onClose}
+          >
+            <h4>x</h4>
+          </button>
+          <img
+            src="/static/Images/watermelon.png"
+            alt="burger"
+            className="w-[15rem] h-[15rem] animate-bounce"
+          />
+          <h5 className="text-black">Login</h5>
+          <p className="text-black relative top-0 h-fit w-fit">
+            {" "}
+            Enter your email
+          </p>
+          <Input
+            // html input attribute
+            name="email"
+            type="email"
+            placeholder="johndoe@email.com"
+            sx={{ color: "#adb5bd" }}
+          />
+          <p className="text-black relative top-0 h-fit w-fit">
+            {" "}
+            Enter your password
+          </p>
+
+          <Input
+            name="password"
+            type="password"
+            placeholder="Password"
+            sx={{ color: "#adb5bd" }}
+          />
+          <p className="text-black relative top-0 h-fit w-fit">
+            You have no menu selected yet.
+          </p>
+          <button
+            className="rounded-full px-[2rem] py-[1rem] backdrop-blur-sm text-black bg-gray-800 bg-opacity-[0.1] hover:bg-opacity-[0.2] transition-all duration-[800ms] ease-slowEase"
+            onClick={onClose}
+          >
+            <p className="text-black mix-blend-normal">Upload Menu</p>
+          </button>
+        </div>
+        {/* <div className="rounded-[1rem]">
         <CssVarsProvider>
           <Sheet
             sx={{
@@ -24,12 +72,11 @@ export default function Login({ onClose }) {
               display: "flex",
               flexDirection: "column",
               gap: 2,
-              borderRadius: "sm",
-              boxShadow: "0 0 10px rgb(255, 255, 255)",
+
               backgroundColor: "black",
             }}
           >
-            {/* title */}
+           
             <div>
               <Typography level="h3" component="h1" sx={{ color: "white" }}>
                 Big Back Brochure
@@ -39,7 +86,7 @@ export default function Login({ onClose }) {
               </Typography>
             </div>
 
-            {/* form */}
+          
             <FormControl>
               <FormLabel sx={{ color: "white" }}>Email</FormLabel>
               <Input
@@ -52,7 +99,12 @@ export default function Login({ onClose }) {
             </FormControl>
 
             <FormControl>
-              <FormLabel sx={{ color: "white" }}>Password</FormLabel>
+              <FormLabel
+                className="border-2 border-red-600"
+                sx={{ color: "white" }}
+              >
+                Password
+              </FormLabel>
               <Input
                 name="password"
                 type="password"
@@ -83,7 +135,8 @@ export default function Login({ onClose }) {
         <button onClick={onClose} className="text-white">
           Close
         </button>
+      </div> */}
       </div>
-    </div>
+    </>
   );
 }
