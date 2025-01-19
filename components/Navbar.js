@@ -3,7 +3,7 @@ import Button from "./Button";
 
 function Navbar() {
   return (
-    <div className="flex flex-row justify-between items-center p-[1rem] bg-black max-w-[100vw]">
+    <div className="flex flex-row justify-between items-center p-[1rem] bg-transparent fixed max-w-[100vw]">
       <Button text="Click me" />
     </div>
   );
