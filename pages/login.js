@@ -12,7 +12,11 @@ import Link from "@mui/joy/Link";
 export default function Login({ onClose }) {
   return (
     <>
+<<<<<<< HEAD
       <div className=" fixed w-[100vw] h-[100vh] backdrop-blur-md brightness-[0.8] z-[10]"></div>
+=======
+      <div className=" fixed w-[100vw] h-[100vh] backdrop-blur-md brightness-[0.8]"></div>
+>>>>>>> replicate-backend
       <div className="fixed z-[20] w-[100vw] h-[100vh] flex-col flex items-center top-0 justify-center animate-fadeIn">
         <div className="backdrop-blur-sm bg-white rounded-[1rem] h-fit w-fit flex flex-col gap-[1rem] px-[4rem] py-[2rem] animate-scaleIn">
           <button

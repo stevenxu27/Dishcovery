@@ -1,10 +1,10 @@
 "use client";
 
+import React, { useState } from "react";
 import FoodContainer from "../components/FoodContainer";
 import { useResistiveScroll } from "../hooks/useResistiveScroll";
 import Navbar from "../components/Navbar";
 
-import React, { useState, useEffect } from "react";
 
 export default function Home() {
   useResistiveScroll();
@@ -18,6 +18,9 @@ export default function Home() {
       setIsUploading(false);
     }
   }, [menuItems]);
+  const [showLogin, setShowLogin] = useState(false);
+  const [showSignUp, setShowSignUp] = useState(false);
+
 
   const scrollToTop = () => {
     window.dispatchEvent(new CustomEvent("resetScroll"));
@@ -60,9 +63,6 @@ export default function Home() {
       reader.readAsDataURL(file);
     }
   };
-
-  const [showLogin, setShowLogin] = useState(false);
-  const [showSignUp, setShowSignUp] = useState(false);
 
   return (
     <div className="w-[100vw] min-h-[100vh] fixed">
@@ -118,11 +118,10 @@ export default function Home() {
                     +
                   </h2>
                   <p
-                    className={`absolute ease-slowEase transition-all duration-[2400ms] ${
-                      active
-                        ? "opacity-0 translate-y-4 mt-[5rem]"
-                        : "opacity-100 translate-y-0 mt-[5rem]"
-                    }`}
+                    className={`absolute ease-slowEase transition-all duration-[2400ms] ${active
+                      ? "opacity-0 translate-y-4 mt-[5rem]"
+                      : "opacity-100 translate-y-0 mt-[5rem]"
+                      }`}
                   >
                     {/* ¨This is where drop your item would go */}
                   </p>
@@ -201,16 +200,15 @@ export default function Home() {
           className={`h-[100vh] w-[100vw] flex flex-col justify-center gap-[5rem] items-center slowEase duration-[800ms] transition-all
           ${menuItems.length > 0 ? "mt-[35rem]" : "mt-[10rem]"}`}
         >
-          <div className="flex-col  text-white text-left  w-[80vw] flex gap-[1rem]">
-            <h3 className="text-left">Welcome to Burger King</h3>
-            <p>
-              We are a fast food restaurant that serves burgers, fries, and
-              other fast food items.
-            </p>
-            {/* <div className="flex flex-row gap-[1rem]">
-              <button className="bg-white w-fit h-fit"> + </button>
-              <button className="bg-white w-fit h-fit"> + </button>
-            </div> */}
+          <div className="flex-col text-white text-left w-[80vw] flex gap-[1rem]">
+            {menuItems.length > 0 && (
+              <>
+                <h3 className="text-left">Welcome to {menuItems[0].restaurant}</h3>
+                <p>
+                  {menuItems[0].slogan}
+                </p>
+              </>
+            )}
           </div>
 
           <div className="flex flex-row gap-[1rem] w-[80vw] flex-1 flex-wrap">
