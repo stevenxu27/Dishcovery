@@ -140,8 +140,6 @@ export default function Home() {
 
         {showLogin && <Login onClose={() => setShowLogin(false)} />}
         {showSignUp && <SignUp onClose={() => setShowSignUp(false)} />}
-        {showLogin && <Login onClose={() => setShowLogin(false)} />}
-        {showSignUp && <SignUp onClose={() => setShowSignUp(false)} />}
 
         <section className="flex flex-row w-[99vw] relative bottom-0 mt-[25vh] overflow-hidden">
           <div className="flex animate-scroll-slow gap-[2rem] whitespace-nowrap">
