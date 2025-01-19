@@ -8,6 +8,7 @@ import React, { useState } from "react";
 
 export default function Home() {
   const [active, setActive] = useState(false);
+  const [menuItems, setMenuItems] = useState([]);
 
   const handleUpload = async () => {
     try {
@@ -17,9 +18,9 @@ export default function Home() {
           'Content-Type': 'application/json'
         }
       });
-  
+
       const data = await response.json();
-      console.log('Response from server:', data);
+      setMenuItems(data.menuItems);
     } catch (error) {
       console.error('Error uploading menu:', error);
     }
@@ -64,10 +65,10 @@ export default function Home() {
                 //     ? "opacity-0 translate-y-4 mt-[10rem]"
                 //     : "opacity-100 translate-y-0 mt-[5rem]"
                 // }`}
-        
+
                 className={`absolute slowEase transition-all ${active
-                    ? " text-transparent duration-[400ms] w-[5rem] h-[1rem] mt-[10rem]"
-                    : "text-opacity-[100%] duration-[1200ms] w-[20rem] h-[2rem] mt-[5rem]"
+                  ? " text-transparent duration-[400ms] w-[5rem] h-[1rem] mt-[10rem]"
+                  : "text-opacity-[100%] duration-[1200ms] w-[20rem] h-[2rem] mt-[5rem]"
                   }`}
               >
                 {/* ¨This is where drop your item would go */}
@@ -121,14 +122,26 @@ export default function Home() {
         </div>
       </section>
 
-      <FoodContainer
+      {/* <FoodContainer
         vegImage="/static/Images/Veggie.png"
         Name="Veggie Tomato Mix"
         Price="$10.99"
         Weight="100g"
         Description="A mix of vegetables and tomatoes"
         altText="menu"
-      />
+      /> */}
+
+      {menuItems.map((item, index) => (
+        <FoodContainer
+          key={index}
+          vegImage=""
+          Name={item.name}
+          Price={item.price}
+          Description={item.description}
+          altText={item.altText}
+        />
+      ))}
+
     </div>
   );
 }

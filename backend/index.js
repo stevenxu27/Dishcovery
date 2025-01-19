@@ -29,20 +29,70 @@ app.post('/api/upload-menu', async (req, res) => {
     const completion = await openai.chat.completions.create({
       model: 'gpt-4o-mini',
       messages: [
-        { role: 'system', content: 'You are a translator for menus in foreign languages.' },
-        { role: 'user', content: output },
+        {
+          role: 'system',
+          content: `You are a menu parser that first translates menus into English, then converts menu text into structured JSON data. 
+                   For each menu item, extract:
+                   - name 
+                   - price 
+                   - description
+                   Format the response as a JSON array of menu items.
+                   Example format:
+                   {
+                     "menuItems": [
+                       {
+                         "name": "Dish Name",
+                         "price": "€00.00",
+                         "description": "English description",
+                         "altText": "Image of [Dish Name]"
+                       }
+                     ]
+                   }`
+        },
+        {
+          role: 'user',
+          content: `Parse this menu text into structured JSON: ${output}`
+        },
       ],
     });
 
     console.log('OpenAI completion:', completion.choices[0].message.content);
-    res.json({ text: completion.choices[0].message.content });
+
+    // Sanitize the OpenAI response
+    let sanitizedContent = completion.choices[0].message.content
+      .replace(/```json|```/g, '') // Remove backticks and JSON markers
+      .trim();
+
+    // Parse the OpenAI response back into an object
+    let menuData;
+    try {
+      menuData = JSON.parse(sanitizedContent);
+    } catch (error) {
+      console.error('Error parsing OpenAI response:', error);
+      menuData = {
+        menuItems: []
+      };
+    }
+
+    // Add any missing fields and validate data
+    const processedMenuItems = (menuData.menuItems || []).map(item => ({
+      ...item,
+      vegImage: item.vegImage || "/api/placeholder/400/400",
+      altText: item.altText || `Image of ${item.name}`,
+    }));
+
+    res.json({
+      success: true,
+      menuItems: processedMenuItems
+    });
+
   } catch (error) {
     console.error('Error:', error);
     res.status(500).json({ error: 'Failed to process image' });
   }
 });
 
-const PORT = 8000; 
+const PORT = 8000;
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
 });
