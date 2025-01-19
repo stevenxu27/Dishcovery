@@ -3,7 +3,6 @@
 import FoodContainer from "../components/FoodContainer";
 import { useResistiveScroll } from "../hooks/useResistiveScroll";
 import Navbar from "../components/Navbar";
-
 import React, { useState, useEffect } from "react";
 
 export default function Home() {
@@ -13,7 +12,7 @@ export default function Home() {
   const [droppedImage, setDroppedImage] = useState(null);
   const [document, setDocument] = useState(null);
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
+  const [isUploading, setIsUploading] = useState(false);
 
   useEffect(() => {
     const fetchDocument = async () => {
@@ -38,12 +37,21 @@ export default function Home() {
     fetchDocument(); // Fetch the document on component mount
   }, []);
 
+  useEffect(() => {
+    if (menuItems.length > 0) {
+      setIsUploading(false);
+    }
+  }, [menuItems]);
+  const [showLogin, setShowLogin] = useState(false);
+  const [showSignUp, setShowSignUp] = useState(false);
+
   const scrollToTop = () => {
     window.dispatchEvent(new CustomEvent("resetScroll"));
   };
 
   const handleUpload = async () => {
     try {
+      setIsUploading(true);
       const response = await fetch("http://localhost:8000/api/upload-menu", {
         method: "POST",
         headers: {
@@ -56,6 +64,7 @@ export default function Home() {
       scrollToTop();
     } catch (error) {
       console.error("Error uploading menu:", error);
+      setIsUploading(false);
     }
   };
 
@@ -68,17 +77,15 @@ export default function Home() {
     e.preventDefault();
     const file = e.dataTransfer.files[0];
     if (file && file.type.startsWith("image/")) {
+      setIsUploading(true);
       const reader = new FileReader();
       reader.onload = (event) => {
         setDroppedImage(event.target.result);
-        setActive(true);
+        setActive(false);
       };
       reader.readAsDataURL(file);
     }
   };
-
-  const [showLogin, setShowLogin] = useState(false);
-  const [showSignUp, setShowSignUp] = useState(false);
 
   return (
     <div className="w-[100vw] min-h-[100vh] fixed">
@@ -90,8 +97,7 @@ export default function Home() {
           ${active ? "pt-[8rem]" : "pt-[3rem]"}`}
         >
           <div
-            className={`flex flex-col gap-[0.5rem] justify-center items-center text-white slowEase duration-[800ms] transition-all 
-              `}
+            className={`flex flex-col gap-[0.5rem] justify-center items-center text-white slowEase duration-[800ms] transition-all`}
           >
             <h2 className="animate-spring" id="home">
               {" "}
@@ -102,11 +108,23 @@ export default function Home() {
             </p>
           </div>
 
-          <div className="flex flex-col gap-[2rem] justify-center items-center">
+          <div className="flex flex-col gap-[2rem] justify-center items-center mt-[4rem]">
+            {isUploading && (
+              <div className="flex items-center justify-center gap-[1rem]">
+                <div className="w-6 h-6 border-4 border-gray-900 border-t-blue-500 rounded-full animate-spin"></div>
+                <p className="text-white">Uploading...</p>
+              </div>
+            )}
+
             <div
-              className={`group bg-gray-900 text-white w-fit bg-opacity-40 
-                transition-all duration-[800ms] ease-slowEase 
-                hover:bg-opacity-60 animate-pulse rounded-[100%] py-[1rem] px-[1.75rem] mt-[0]  hover:rounded-[2rem] hover:py-[8rem] hover:px-[8rem] hover:mt-[2rem]`}
+              className={`group bg-gray-900 text-white w-fit bg-opacity-40 overflow-hidden 
+                transition-all duration-[800ms] ease-slowEase
+                ${
+                  isUploading
+                    ? "bg-opacity-60 rounded-[2rem] py-[8rem] px-[8rem] hover:mt-[2rem]"
+                    : "rounded-[100%] py-[1rem] px-[1.75rem] mt-[0] "
+                } 
+                animate-pulse  `}
               onDragOver={handleDragOver}
               onDrop={handleDrop}
               onClick={handleUpload}
@@ -115,7 +133,7 @@ export default function Home() {
                 <img
                   src={droppedImage}
                   alt="Dropped"
-                  className="w-[12rem] h-full object-cover rounded-[1rem]"
+                  className="w-[15rem] h-full object-cover rounded-[1rem]"
                 />
               ) : (
                 <div className="flex flex-col justify-center items-center relative">
@@ -123,11 +141,10 @@ export default function Home() {
                     +
                   </h2>
                   <p
-                    className={`absolute ease-slowEase transition-all duration-[2400ms] ${
-                      active
-                        ? "opacity-0 translate-y-4 mt-[5rem]"
-                        : "opacity-100 translate-y-0 mt-[5rem]"
-                    }`}
+                    className={`absolute ease-slowEase transition-all duration-[2400ms] ${active
+                      ? "opacity-0 translate-y-4 mt-[5rem]"
+                      : "opacity-100 translate-y-0 mt-[5rem]"
+                      }`}
                   >
                     {/* ¨This is where drop your item would go */}
                   </p>
@@ -135,21 +152,6 @@ export default function Home() {
               )}
             </div>
 
-            {/* <div className="flex flex-row gap-[1rem] text-my-gray">
-              <button
-                className="hover:text-white transition-colors duration-300"
-                onClick={() => setShowLogin(true)}
-              >
-                Login
-              </button>
-              <p>|</p>
-              <button
-                className="hover:text-white transition-colors duration-300"
-                onClick={() => setShowSignUp(true)}
-              >
-                Sign Up
-              </button>
-            </div> */}
             <button
               className={`py-2 px-4 rounded z-50 
     ${
@@ -221,16 +223,15 @@ export default function Home() {
           className={`h-[100vh] w-[100vw] flex flex-col justify-center gap-[5rem] items-center slowEase duration-[800ms] transition-all
           ${menuItems ? "mt-[35rem]" : "mt-[10rem]"}`}
         >
-          <div className="flex-col  text-white text-left  w-[80vw] flex gap-[1rem]">
-            <h3 className="text-left">Welcome to Burger King</h3>
-            <p>
-              We are a fast food restaurant that serves burgers, fries, and
-              other fast food items.
-            </p>
-            {/* <div className="flex flex-row gap-[1rem]">
-              <button className="bg-white w-fit h-fit"> + </button>
-              <button className="bg-white w-fit h-fit"> + </button>
-            </div> */}
+          <div className="flex-col text-white text-left w-[80vw] flex gap-[1rem]">
+            {menuItems.length > 0 && (
+              <>
+                <h3 className="text-left">Welcome to {menuItems[0].restaurant}</h3>
+                <p>
+                  {menuItems[0].slogan}
+                </p>
+              </>
+            )}
           </div>
 
           <div className="flex flex-row gap-[1rem] w-[80vw] flex-1 flex-wrap">

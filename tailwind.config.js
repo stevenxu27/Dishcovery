@@ -38,6 +38,28 @@ module.exports = {
           "0%, 100%": { transform: "scale(1)" },
           "50%": { transform: "scale(1.05)" },
         },
+        loader: {
+          "0%": {
+            transform: "rotate(0deg)",
+            borderRadius: "50%",
+          },
+          "25%": {
+            transform: "rotate(180deg)",
+            borderRadius: "30% 70% 70% 30% / 30% 30% 70% 70%",
+          },
+          "50%": {
+            transform: "rotate(360deg)",
+            borderRadius: "50%",
+          },
+          "75%": {
+            transform: "rotate(540deg)",
+            borderRadius: "70% 30% 30% 70% / 70% 70% 30% 30%",
+          },
+          "100%": {
+            transform: "rotate(720deg)",
+            borderRadius: "50%",
+          },
+        },
         fadeIn: {
           "0%": { opacity: "0" },
           "100%": { opacity: "1" },
@@ -65,6 +87,7 @@ module.exports = {
         spring: "spring 0.5s cubic-bezier(0.2, 0.8, 0.4, 1.2)",
         "scroll-slow": "scroll 25s linear infinite",
         "pulse-slow": "pulse 4s ease-slowEase infinite",
+        loader: "loader 4s ease-slowEase infinite",
         fadeIn: "fadeIn 0.4s ease-slowEase forwards",
         scaleIn: "scaleIn 0.6s ease-slowEase forwards",
         slideIn: "slideIn 0.4s ease-slowEase forwards",
