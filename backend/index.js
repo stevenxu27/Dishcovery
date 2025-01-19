@@ -59,7 +59,8 @@ app.post("/api/upload-menu", async (req, res) => {
           role: "system",
           content: `You are a menu parser that first translates menus into English, then converts menu text into structured JSON data. 
                    For each menu item, extract:
-                   - the dish name in simple english
+                   - the restaurant title
+                   - a short description of the restaurant based on what they serve
                    - price 
                    - description in english
                    Format the response as a JSON array of menu items.
@@ -67,6 +68,8 @@ app.post("/api/upload-menu", async (req, res) => {
                    {
                      "menuItems": [
                        {
+                         "restaurant": "McDonald's",
+                         "slogan": "A fast food stop with burgers, fries, and everything in between",
                          "name": "Dish Name",
                          "price": "€00.00",
                          "description": "English description",
