@@ -13,11 +13,11 @@ export default function Home() {
   const [document, setDocument] = useState(null);
   const [loading, setLoading] = useState(true);
   const [isUploading, setIsUploading] = useState(false);
-
+  const [chatBot, setChatBot] = useState(false);
   useEffect(() => {
     const fetchDocument = async () => {
       try {
-        const res = await fetch('/api/db'); // Fetch from the API route
+        const res = await fetch("/api/db"); // Fetch from the API route
 
         // Check if the response status is OK (200)
         if (!res.ok) {
@@ -27,7 +27,7 @@ export default function Home() {
         const data = await res.json(); // Parse the response as JSON
         setDocument(data); // Store the fetched documents
       } catch (err) {
-        console.error('Failed to fetch document:', err);
+        console.error("Failed to fetch document:", err);
         setError(err.message); // Store the error message
       } finally {
         setLoading(false);
@@ -88,7 +88,57 @@ export default function Home() {
   };
 
   return (
-    <div className="w-[100vw] min-h-[100vh] fixed">
+    <div className="w-[100vw] h-[100vh] flex flex-col justify-start items-end  absolute">
+      <section className="fixed top-8 right-8 z-[100]">
+        <div
+          className={`rounded-[1rem] overflow-hidden transition-all duration-[800ms] ease-slowEase
+          ${
+            chatBot
+              ? "w-[24rem] h-[70vh] bg-gray-800/90 backdrop-blur-md shadow-xl"
+              : "w-[3.5rem] h-[3.5rem] bg-gray-800/50 hover:bg-gray-800/70 transition-colors"
+          }`}
+        >
+          <div
+            className={`flex flex-col h-full transition-all duration-[500ms] ease-slowEase
+              ${chatBot ? "opacity-100 p-6" : "opacity-0 p-0"}`}
+          >
+            <div className="flex justify-between items-center mb-4">
+              <h2 className="text-white text-xl font-semibold">
+                Chat Assistant
+              </h2>
+            </div>
+            <div className="flex-1 overflow-y-auto text-white scrollbar-thin scrollbar-thumb-gray-600 scrollbar-track-transparent">
+              <p className="mb-2">Hello! How can I help you today?</p>
+            </div>
+            <div className="mt-4 flex gap-2">
+              <input
+                type="text"
+                placeholder="Type your message..."
+                className="flex-1 bg-gray-700/50 text-white rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+              />
+              <button className="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600 transition-colors">
+                Send
+              </button>
+            </div>
+          </div>
+
+          <button
+            className={`absolute ${
+              chatBot ? "top-4 right-4" : "inset-0 w-full h-full"
+            } transition-all duration-300 ease-slowEase hover:opacity-80`}
+            onClick={() => setChatBot(!chatBot)}
+          >
+            {chatBot ? (
+              <span className="text-white text-2xl">×</span>
+            ) : (
+              <div className="w-full h-full flex items-center justify-center">
+                <span className="text-white text-2xl">💬</span>
+              </div>
+            )}
+          </button>
+        </div>
+      </section>
+
       <div className="fixed bg-dark-gradient w-[99vw] h-[100vh] z-[-10] top-0"></div>
       <Navbar setShowLogin={setShowLogin} setShowSignUp={setShowSignUp} />
       <div className="smooth-scroll-container">
@@ -141,10 +191,11 @@ export default function Home() {
                     +
                   </h2>
                   <p
-                    className={`absolute ease-slowEase transition-all duration-[2400ms] ${active
-                      ? "opacity-0 translate-y-4 mt-[5rem]"
-                      : "opacity-100 translate-y-0 mt-[5rem]"
-                      }`}
+                    className={`absolute ease-slowEase transition-all duration-[2400ms] ${
+                      active
+                        ? "opacity-0 translate-y-4 mt-[5rem]"
+                        : "opacity-100 translate-y-0 mt-[5rem]"
+                    }`}
                   >
                     {/* ¨This is where drop your item would go */}
                   </p>
@@ -226,10 +277,10 @@ export default function Home() {
           <div className="flex-col text-white text-left w-[80vw] flex gap-[1rem]">
             {menuItems.length > 0 && (
               <>
-                <h3 className="text-left">Welcome to {menuItems[0].restaurant}</h3>
-                <p>
-                  {menuItems[0].slogan}
-                </p>
+                <h3 className="text-left">
+                  Welcome to {menuItems[0].restaurant}
+                </h3>
+                <p>{menuItems[0].slogan}</p>
               </>
             )}
           </div>
@@ -263,13 +314,16 @@ export default function Home() {
             )}
           </div>
 
-          <div style={{ color: 'white', fontSize: '20px' }}>
-            <h2 style={{ fontSize: '24px', color: 'white' }}>Latest Documents:</h2>
+          <div style={{ color: "white", fontSize: "20px" }}>
+            <h2 style={{ fontSize: "24px", color: "white" }}>
+              Latest Documents:
+            </h2>
             {loading ? (
-              <p style={{ color: 'white' }}>Loading...</p>
+              <p style={{ color: "white" }}>Loading...</p>
             ) : (
-              <pre style={{ color: 'white', fontSize: '18px' }}>
-                {JSON.stringify(document, null, 2)} {/* Display stored document as JSON */}
+              <pre style={{ color: "white", fontSize: "18px" }}>
+                {JSON.stringify(document, null, 2)}{" "}
+                {/* Display stored document as JSON */}
               </pre>
             )}
           </div>

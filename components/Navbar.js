@@ -13,14 +13,14 @@ function Navbar() {
 
   return (
     <>
-      <div className="flex flex-row justify-end w-full px-[2rem] items-center py-[1rem] bg-transparent fixed max-w-[100vw] gap-[1rem] slowEase duration-[800ms] transition-all z-[30]">
+      <div className="fixed bottom-8 right-8 flex flex-row items-center gap-[1rem] z-[30]">
         <div className="flex flex-row items-center">
           <div
             className={`overflow-hidden transition-all duration-[800ms] ease-slowEase flex flex-row gap-[1rem]
               ${
                 active
                   ? "w-[16rem] mr-4 opacity-100 translate-x-0 scale-100"
-                  : "w-0 opacity-0 -translate-x-10 scale-95"
+                  : "w-0 opacity-0 translate-x-10 scale-95"
               }`}
           >
             <Button
@@ -28,11 +28,11 @@ function Navbar() {
               onClick={() => {
                 setShowLogin(true), setShowSignUp(false);
               }}
-              className={`transform transition-all duration-[800ms] ease-slowEase delay-100
+              className={`transform backdrop-blur-lg bg-black transition-all duration-[800ms] ease-slowEase delay-100
                 ${
                   active
-                    ? "translate-y-0 opacity-100"
-                    : "-translate-y-4 opacity-0"
+                    ? "translate-y-0 opacity-[100%]"
+                    : "translate-y-4 opacity-[0%]"
                 }`}
             />
             <Button
@@ -40,13 +40,17 @@ function Navbar() {
               onClick={() => {
                 setShowSignUp(true), setShowLogin(false);
               }}
-              className={`transform transition-all duration-[800ms] ease-slowEase delay-200
-                ${active ? "setShowSignUp(true)" : "-translate-y-4 opacity-0"}`}
+              className={`transform backdrop-blur-lg bg-black transition-all duration-[800ms] ease-slowEase delay-200
+                ${
+                  active
+                    ? "translate-y-0 opacity-100"
+                    : "translate-y-4 opacity-0"
+                }`}
             />
-          </div>
+        </div>
 
           <button
-            className={`rounded-full px-[2rem] py-[1rem] backdrop-blur-sm text-white bg-gray-800 bg-opacity-[0.1]
+            className={`rounded-full px-[2rem] py-[1rem] backdrop-blur-md text-white bg-gray-800 bg-opacity-[0.1]
               transition-all duration-[800ms] ease-slowEase hover:scale-105
               ${
                 active
@@ -66,7 +70,7 @@ function Navbar() {
 
       {/* Signup*/}
       <div
-        className={`fixed   backdrop-blur-md brightness-[0.8] z-[10] slowEase duration-[800ms] transition-all
+        className={`fixed  backdrop-blur-md brightness-[0.8] z-[10] slowEase duration-[800ms] transition-all
           ${
             showSignUp || showLogin
               ? "w-[100vw] h-[100vh]  mt-[0] opacity-100"
@@ -76,7 +80,7 @@ function Navbar() {
 
       {/* Signup */}
       <div
-        className={`fixed w-[100vw] h-[100vh] flex-col flex items-center top-0 justify-center animate-fadeIn ease-slowEase duration-[800ms] transition-all delay-[0ms]
+        className={`fixed w-[100vw] h-[100vh] flex-col flex items-center bottom-0 justify-center animate-fadeIn ease-slowEase duration-[800ms] transition-all delay-[0ms]
         ${showSignUp ? "z-[20]" : "z-[10]"}`}
       >
         <div
