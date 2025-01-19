@@ -8,15 +8,10 @@ import FormLabel from '@mui/joy/FormLabel';
 import Input from '@mui/joy/Input';
 import Button from '@mui/joy/Button';
 import Link from '@mui/joy/Link';
-import { extendTheme } from '@mui/joy/styles';
-
-const theme = extendTheme({
-  colorSchemeSelector: 'dark',
-});
 
 function Login() {
     return (
-        <CssVarsProvider theme={theme}>
+        <CssVarsProvider>
             <Sheet
                 sx={{
                     width: 300,
@@ -28,51 +23,57 @@ function Login() {
                     flexDirection: 'column',
                     gap: 2,
                     borderRadius: 'sm',
-                    boxShadow: 'md',
+                    boxShadow: '0 0 10px rgb(255, 255, 255)',
+                    backgroundColor: "black"
                 }}>
 
                 {/* title */}
                 <div>
-                    <Typography level="h4" component="h1">
+                    <Typography level="h3" component="h1" sx={{ color: "white" }}>
                         Big Back Brochure
                     </Typography>
-                    <Typography level="body-sm">your pocket guide to menus worldwide.</Typography>
+                    <Typography level="body-sm" sx={{ color: "white" }}>your pocket guide to menus worldwide.</Typography>
                 </div>
 
                 {/* form */}
                 <FormControl>
-                    <FormLabel>Email</FormLabel>
+                    <FormLabel sx={{ color: "white" }}>Email</FormLabel>
                     <Input
                         // html input attribute
                         name="email"
                         type="email"
                         placeholder="johndoe@email.com"
+                        sx={{ color: "#adb5bd" }}
                     />
                 </FormControl>
 
                 <FormControl>
-                    <FormLabel>Password</FormLabel>
+                    <FormLabel sx={{ color: "white" }}>Password</FormLabel>
                     <Input
                         name="password"
                         type="password"
                         placeholder="password"
+                        sx={{ color: "#adb5bd" }}
                     />
                 </FormControl>
 
-                <Button sx={{ mt: 1 /* margin top */ }}>
+                <Button sx={{ mt: 1, boxShadow: '0 0 10px 5px rgba(255,255,255)' }}>
                     Log in
                 </Button>
                 <Typography
-                    endDecorator={<Link href="/sign-up">Sign up</Link>}
+                    endDecorator={<Link href="/sign-up" sx={{color: "#2fa8fe"}}>Sign up</Link>}
                     fontSize="sm"
-                    sx={{ alignSelf: 'center' }}
+                    sx={{
+                        alignSelf: 'center',
+                        color: "white"
+                    }}
                 >
                     Don't have an account?
                 </Typography>
 
 
             </Sheet>
-        </CssVarsProvider>
+        </CssVarsProvider >
     );
 }
 
