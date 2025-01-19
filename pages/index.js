@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import FoodContainer from "../components/FoodContainer";
 import { useResistiveScroll } from "../hooks/useResistiveScroll";
 import Navbar from "../components/Navbar";

@@ -29,6 +29,8 @@ async function getDishImage(dishName) {
       }
     );
 
+    console.log('Spoonacular response:', response.data);
+
     if (response.data.results && response.data.results.length > 0) {
       return response.data.results[0].image;
     }
@@ -61,6 +63,7 @@ app.post("/api/upload-menu", async (req, res) => {
                    For each menu item, extract:
                    - the restaurant title
                    - a short description of the restaurant based on what they serve
+                   - the name of the dish in english
                    - price 
                    - description in english
                    Format the response as a JSON array of menu items.
