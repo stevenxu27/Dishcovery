@@ -2,14 +2,17 @@
 
 import Login from "./login";
 import SignUp from "./signup";
+import FoodContainer from "../components/FoodContainer";
 
 import React, { useState } from "react";
 
 export default function Home() {
   const [active, setActive] = useState(false);
+  const [showLogin, setShowLogin] = useState(false);
+  const [showSignUp, setShowSignUp] = useState(false);
 
   return (
-    <div className="bg-black w-[100vw] h-[100vh]">
+    <div className="bg-dark-gradient w-[100vw] h-[100vh]">
       <div
         className={`h-[60vh] flex flex-col justify-between slowEase duration-[800ms] transition-all
         ${active ? "pt-[8rem]" : "pt-[3rem]"}`}
@@ -41,27 +44,80 @@ export default function Home() {
                 +
               </h2>
               <p
-                className={`  absolute slowEase transition-all ${
+                className={`absolute ease-slowEase transition-all duration-[800ms] ${
                   active
-                    ? " text-transparent duration-[400ms] w-[5rem] h-[1rem] mt-[10rem]"
-                    : "text-opacity-[100%] duration-[1200ms] w-[20rem] h-[2rem] mt-[5rem]"
+                    ? "opacity-0 translate-y-4 mt-[10rem]"
+                    : "opacity-100 translate-y-0 mt-[5rem]"
                 }`}
               >
-                Drop your menu here
+                {/* ¨This is where drop your item would go */}
               </p>
             </div>
           </button>
+
           <div className="flex flex-row gap-[1rem] text-my-gray">
-            <p className="hover:text-white transition-colors duration-300 cursor-pointer">
+            <button
+              className="hover:text-white transition-colors duration-300"
+              onClick={() => setShowLogin(true)}
+            >
               Login
-            </p>
+            </button>
             <p>|</p>
-            <p className="hover:text-white transition-colors duration-300 cursor-pointer">
-              <SignUp></SignUp>
-            </p>
+            <button
+              className="hover:text-white transition-colors duration-300"
+              onClick={() => setShowSignUp(true)}
+            >
+              Sign Up
+            </button>
           </div>
         </div>
       </div>
+
+      {showLogin && <Login onClose={() => setShowLogin(false)} />}
+      {showSignUp && <SignUp onClose={() => setShowSignUp(false)} />}
+
+      <section className="flex flex-row w-full relative bottom-0 mt-[5rem] overflow-hidden">
+        <div className="flex animate-scroll-slow gap-[2rem] whitespace-nowrap">
+          <div className="flex gap-[2rem]">
+            {["Eggplant", "croisssant", "doughnut", "Gummi", "watermelon"].map(
+              (image, index) => (
+                <img
+                  key={index}
+                  src={`/static/Images/${image}.png`}
+                  alt="menu"
+                  width={100}
+                  height={100}
+                  className="w-[15rem] h-[15rem] min-w-[15rem] hover:animate-pulse-slow transition-all duration-[800ms] ease-slowEase"
+                />
+              )
+            )}
+          </div>
+
+          <div className="flex gap-[2rem]">
+            {["Eggplant", "croisssant", "doughnut", "Gummi", "watermelon"].map(
+              (image, index) => (
+                <img
+                  key={`dup-${index}`}
+                  src={`/static/Images/${image}.png`}
+                  alt="menu"
+                  width={100}
+                  height={100}
+                  className="w-[15rem] h-[15rem] min-w-[15rem] hover:animate-pulse-slow transition-all duration-[800ms] ease-slowEase"
+                />
+              )
+            )}
+          </div>
+        </div>
+      </section>
+
+      <FoodContainer
+        vegImage="/static/Images/Veggie.png"
+        Name="Veggie Tomato Mix"
+        Price="$10.99"
+        Weight="100g"
+        Description="A mix of vegetables and tomatoes"
+        altText="menu"
+      />
     </div>
   );
 }

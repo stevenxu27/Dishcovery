@@ -4,6 +4,10 @@
 @tailwind components;
 @tailwind utilities;
 
+body {
+  background-color: black;
+}
+
 @font-face {
   font-family: "Neue Haas Grotesk";
   src: url("/fonts/NeueHaasGrotesk-Roman.woff2") format("woff2"),
@@ -82,7 +86,7 @@ h3 {
 h4 {
   font-size: 32px;
   line-height: 40px;
-  font-weight: 400;
+  font-weight: 600;
 }
 
 h5 {

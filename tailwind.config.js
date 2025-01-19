@@ -30,9 +30,22 @@ module.exports = {
           "50%": { transform: "scale(1.1)" },
           "100%": { transform: "scale(1)" },
         },
+        scroll: {
+          '0%': { transform: 'translateX(0)' },
+          '100%': { transform: 'translateX(-50%)' },
+        },
+        pulse: {
+          '0%, 100%': { transform: 'scale(1)' },
+          '50%': { transform: 'scale(1.05)' }
+        }
       },
       animation: {
         spring: "spring 0.5s cubic-bezier(0.2, 0.8, 0.4, 1.2)",
+        'scroll-slow': 'scroll 25s linear infinite',
+        'pulse-slow': 'pulse 4s ease-slowEase infinite',
+      },
+      backgroundImage: {
+        'dark-gradient': 'linear-gradient(to bottom, #000000, #000000, #111827)',
       },
     },
   },
