@@ -22,6 +22,7 @@ def record_audio(duration, filename, sample_rate=44100):
     print(f"Recording saved to {filename}")
 
 if __name__ == "__main__":
+    
     duration = 5  # Duration in seconds
 
     current_directory = os.path.dirname(os.path.abspath(__file__))

@@ -13,7 +13,10 @@ export default function Home() {
   const [document, setDocument] = useState(null);
   const [loading, setLoading] = useState(true);
   const [isUploading, setIsUploading] = useState(false);
+  const [error, setError] = useState(null);
   const [chatBot, setChatBot] = useState(false);
+  const entries = document ? Object.entries(document) : []; // Safely handle undefined/null
+
   useEffect(() => {
     const fetchDocument = async () => {
       try {
@@ -108,12 +111,12 @@ export default function Home() {
               </h2>
             </div>
             <div className="flex-1 overflow-y-auto text-white scrollbar-thin scrollbar-thumb-gray-600 scrollbar-track-transparent">
-              <p className="mb-2">Hello! How can I help you today?</p>
+              <p className="mb-2"> {entries[2] ? entries[2][1] : "Hi, how can we help?"}</p>
             </div>
             <div className="mt-4 flex gap-2">
               <input
                 type="text"
-                placeholder="Type your message..."
+                placeholder={entries[1] ? entries[1][1] : "Type a message..."}
                 className="flex-1 bg-gray-700/50 text-white rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
               />
               <button className="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600 transition-colors">
@@ -313,20 +316,6 @@ export default function Home() {
                   <p className="text-white mix-blend-normal">Upload Menu</p>
                 </button>
               </div>
-            )}
-          </div>
-
-          <div style={{ color: "white", fontSize: "20px" }}>
-            <h2 style={{ fontSize: "24px", color: "white" }}>
-              Latest Documents:
-            </h2>
-            {loading ? (
-              <p style={{ color: "white" }}>Loading...</p>
-            ) : (
-              <pre style={{ color: "white", fontSize: "18px" }}>
-                {JSON.stringify(document, null, 2)}{" "}
-                {/* Display stored document as JSON */}
-              </pre>
             )}
           </div>
         </section>
