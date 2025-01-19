@@ -89,22 +89,18 @@ export default function Home() {
 
   return (
     <div className="w-[100vw] h-[100vh] flex flex-col justify-start items-end  absolute">
-      <section className="fixed top-8 right-8 z-[999]">
+      <section className="fixed top-8 right-8 z-[100]">
         <div
           className={`rounded-[1rem] overflow-hidden transition-all duration-[800ms] ease-slowEase
           ${
             chatBot
-              ? "w-[24rem] h-[70vh] bg-gray-800/90 backdrop-blur-md shadow-xl translate-y-0 scale-100 opacity-100"
-              : "w-[3.5rem] h-[3.5rem] bg-gray-800/50 hover:bg-gray-800/70 translate-y-4 scale-95 opacity-0"
+              ? "w-[24rem] h-[70vh] bg-gray-800/90 backdrop-blur-md shadow-xl"
+              : "w-[3.5rem] h-[3.5rem] bg-gray-800/50 hover:bg-gray-800/70 transition-colors"
           }`}
         >
           <div
-            className={`flex flex-col h-full transition-all duration-[800ms] ease-slowEase
-              ${
-                chatBot
-                  ? "opacity-100 p-6 translate-y-0"
-                  : "opacity-0 p-0 translate-y-4"
-              }`}
+            className={`flex flex-col h-full transition-all duration-[500ms] ease-slowEase
+              ${chatBot ? "opacity-100 p-6" : "opacity-0 p-0"}`}
           >
             <div className="flex justify-between items-center mb-4">
               <h2 className="text-white text-xl font-semibold">
@@ -127,12 +123,11 @@ export default function Home() {
           </div>
 
           <button
-            className={`absolute transition-all duration-[800ms] ease-slowEase hover:opacity-80
-              ${
-                chatBot
-                  ? "top-4 right-4 opacity-100 scale-100"
-                  : "inset-0 w-full h-full opacity-100 scale-100"
-              }`}
+            className={`absolute ${
+              chatBot
+                ? "top-4 right-4"
+                : "inset-0 w-full h-full border-2 border-white rounded-[1rem]"
+            } transition-all duration-300 ease-slowEase hover:opacity-80`}
             onClick={() => setChatBot(!chatBot)}
           >
             {chatBot ? (
@@ -279,7 +274,7 @@ export default function Home() {
 
         <section
           className={`h-[100vh] w-[100vw] flex flex-col justify-center gap-[5rem] items-center slowEase duration-[800ms] transition-all
-          ${menuItems ? "mt-[35rem]" : "mt-[10rem]"}`}
+          ${menuItems ? "mt-[90vh]" : "mt-[10rem] "}`}
         >
           <div className="flex-col text-white text-left w-[80vw] flex gap-[1rem]">
             {menuItems.length > 0 && (
@@ -292,7 +287,7 @@ export default function Home() {
             )}
           </div>
 
-          <div className="flex flex-row gap-[1rem] w-[80vw] flex-1 flex-wrap">
+          <div className="flex flex-row gap-[1rem] w-[95vw] lg:w-[80vw] sm:ml-[10vw] flex-1 flex-wrap">
             {menuItems ? (
               menuItems.map((item, index) => (
                 <FoodContainer

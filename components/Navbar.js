@@ -81,7 +81,7 @@ function Navbar() {
       {/* Signup */}
       <div
         className={`fixed w-[100vw] h-[100vh] flex-col flex items-center bottom-0 justify-center animate-fadeIn ease-slowEase duration-[800ms] transition-all delay-[0ms]
-        ${showSignUp ? "z-[-20]" : "z-[-100]"}`}
+        ${showSignUp ? "z-[20]" : "z-[-100]"}`}
       >
         <div
           className={`backdrop-blur-sm bg-white bg-opacity-[0.4] rounded-[1rem] h-fit w-fit flex flex-col gap-[1rem] px-[4rem] py-[2rem] slowEase duration-[800ms] transition-all
