@@ -1,18 +1,23 @@
 "use client";
 
-import Login from "./login";
-import SignUp from "./signup";
 import FoodContainer from "../components/FoodContainer";
 import { useResistiveScroll } from "../hooks/useResistiveScroll";
 import Navbar from "../components/Navbar";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 export default function Home() {
   useResistiveScroll();
   const [active, setActive] = useState(false);
   const [menuItems, setMenuItems] = useState([]);
   const [droppedImage, setDroppedImage] = useState(null);
+  const [isUploading, setIsUploading] = useState(false);
+
+  useEffect(() => {
+    if (menuItems.length > 0) {
+      setIsUploading(false);
+    }
+  }, [menuItems]);
 
   const scrollToTop = () => {
     window.dispatchEvent(new CustomEvent("resetScroll"));
@@ -20,6 +25,7 @@ export default function Home() {
 
   const handleUpload = async () => {
     try {
+      setIsUploading(true);
       const response = await fetch("http://localhost:8000/api/upload-menu", {
         method: "POST",
         headers: {
@@ -32,6 +38,7 @@ export default function Home() {
       scrollToTop();
     } catch (error) {
       console.error("Error uploading menu:", error);
+      setIsUploading(false);
     }
   };
 
@@ -44,10 +51,11 @@ export default function Home() {
     e.preventDefault();
     const file = e.dataTransfer.files[0];
     if (file && file.type.startsWith("image/")) {
+      setIsUploading(true);
       const reader = new FileReader();
       reader.onload = (event) => {
         setDroppedImage(event.target.result);
-        setActive(true);
+        setActive(false);
       };
       reader.readAsDataURL(file);
     }
@@ -66,8 +74,7 @@ export default function Home() {
           ${active ? "pt-[8rem]" : "pt-[3rem]"}`}
         >
           <div
-            className={`flex flex-col gap-[0.5rem] justify-center items-center text-white slowEase duration-[800ms] transition-all 
-              `}
+            className={`flex flex-col gap-[0.5rem] justify-center items-center text-white slowEase duration-[800ms] transition-all`}
           >
             <h2 className="animate-spring" id="home">
               {" "}
@@ -78,11 +85,23 @@ export default function Home() {
             </p>
           </div>
 
-          <div className="flex flex-col gap-[2rem] justify-center items-center">
+          <div className="flex flex-col gap-[2rem] justify-center items-center mt-[4rem]">
+            {isUploading && (
+              <div className="flex items-center justify-center gap-[1rem]">
+                <div className="w-6 h-6 border-4 border-gray-900 border-t-blue-500 rounded-full animate-spin"></div>
+                <p className="text-white">Uploading...</p>
+              </div>
+            )}
+
             <div
-              className={`group bg-gray-900 text-white w-fit bg-opacity-40 
-                transition-all duration-[800ms] ease-slowEase 
-                hover:bg-opacity-60 animate-pulse rounded-[100%] py-[1rem] px-[1.75rem] mt-[0]  hover:rounded-[2rem] hover:py-[8rem] hover:px-[8rem] hover:mt-[2rem]`}
+              className={`group bg-gray-900 text-white w-fit bg-opacity-40 overflow-hidden 
+                transition-all duration-[800ms] ease-slowEase
+                ${
+                  isUploading
+                    ? "bg-opacity-60 rounded-[2rem] py-[8rem] px-[8rem] hover:mt-[2rem]"
+                    : "rounded-[100%] py-[1rem] px-[1.75rem] mt-[0] "
+                } 
+                animate-pulse  `}
               onDragOver={handleDragOver}
               onDrop={handleDrop}
               onClick={handleUpload}
@@ -91,7 +110,7 @@ export default function Home() {
                 <img
                   src={droppedImage}
                   alt="Dropped"
-                  className="w-[12rem] h-full object-cover rounded-[1rem]"
+                  className="w-[15rem] h-full object-cover rounded-[1rem]"
                 />
               ) : (
                 <div className="flex flex-col justify-center items-center relative">
@@ -111,21 +130,6 @@ export default function Home() {
               )}
             </div>
 
-            {/* <div className="flex flex-row gap-[1rem] text-my-gray">
-              <button
-                className="hover:text-white transition-colors duration-300"
-                onClick={() => setShowLogin(true)}
-              >
-                Login
-              </button>
-              <p>|</p>
-              <button
-                className="hover:text-white transition-colors duration-300"
-                onClick={() => setShowSignUp(true)}
-              >
-                Sign Up
-              </button>
-            </div> */}
             <button
               className={`py-2 px-4 rounded z-50 
     ${
