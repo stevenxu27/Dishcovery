@@ -1,4 +1,7 @@
-"use client";
+import Login from "./login";
+import SignUp from "./signup";
+
+("use client");
 import React, { useState } from "react";
 
 export default function Home() {
@@ -53,7 +56,7 @@ export default function Home() {
             </p>
             <p>|</p>
             <p className="hover:text-white transition-colors duration-300 cursor-pointer">
-              Sign Up
+              <SignUp></SignUp>
             </p>
           </div>
         </div>
