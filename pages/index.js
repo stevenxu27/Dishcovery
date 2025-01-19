@@ -13,6 +13,7 @@ export default function Home() {
   const [document, setDocument] = useState(null);
   const [loading, setLoading] = useState(true);
   const [isUploading, setIsUploading] = useState(false);
+  const [error, setError] = useState(null);
 
   useEffect(() => {
     const fetchDocument = async () => {
