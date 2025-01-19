@@ -1,5 +1,6 @@
 import sounddevice as sd
 import wavio
+import os   
 
 def record_audio(duration, filename, sample_rate=44100):
     """
@@ -22,6 +23,14 @@ def record_audio(duration, filename, sample_rate=44100):
 
 if __name__ == "__main__":
     duration = 5  # Duration in seconds
-    filename = "input_audio.wav"  # Output file name
-    record_audio(duration, filename)
+
+    current_directory = os.path.dirname(os.path.abspath(__file__))
+
+    # Define the filename
+    filename = "output.wav"
+
+    # Combine the current directory with the filename to get the full path
+    
+    full_path = os.path.join(current_directory, filename)
+    record_audio(duration, full_path)
         
