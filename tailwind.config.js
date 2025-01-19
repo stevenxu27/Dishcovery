@@ -82,6 +82,14 @@ module.exports = {
           "0%": { transform: "translateY(20px)", opacity: "0" },
           "100%": { transform: "translateY(0)", opacity: "1" },
         },
+        float: {
+          "0%, 100%": {
+            transform: "translateY(0)",
+          },
+          "50%": {
+            transform: "translateY(-10px)",
+          },
+        },
       },
       animation: {
         spring: "spring 0.5s cubic-bezier(0.2, 0.8, 0.4, 1.2)",
@@ -92,10 +100,14 @@ module.exports = {
         scaleIn: "scaleIn 0.6s ease-slowEase forwards",
         slideIn: "slideIn 0.4s ease-slowEase forwards",
         slideFromTop: "slideFromTop 0.6s ease-slowEase forwards",
+        float: "float 3s ease-in-out infinite",
       },
       backgroundImage: {
         "dark-gradient":
           "linear-gradient(to bottom, #000000, #000000, #111827)",
+        "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",
+        "gradient-conic":
+          "conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))",
       },
     },
   },
