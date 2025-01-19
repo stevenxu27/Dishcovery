@@ -129,7 +129,7 @@ export default function Home() {
               )}
             </div>
 
-            <button
+            {/* <button
               className={`py-2 px-4 rounded z-50 
     ${
       droppedImage
@@ -141,7 +141,7 @@ export default function Home() {
               disabled={!droppedImage}
             >
               Upload
-            </button>
+            </button> */}
           </div>
         </div>
 
