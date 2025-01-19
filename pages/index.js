@@ -59,11 +59,12 @@ export default function Home() {
                 +
               </h2>
               <p
-                className={`absolute ease-slowEase transition-all duration-[800ms] ${
-                  active
-                    ? "opacity-0 translate-y-4 mt-[10rem]"
-                    : "opacity-100 translate-y-0 mt-[5rem]"
-                }`}
+                // className={`absolute ease-slowEase transition-all duration-[800ms] ${
+                //   active
+                //     ? "opacity-0 translate-y-4 mt-[10rem]"
+                //     : "opacity-100 translate-y-0 mt-[5rem]"
+                // }`}
+        
                 className={`absolute slowEase transition-all ${active
                     ? " text-transparent duration-[400ms] w-[5rem] h-[1rem] mt-[10rem]"
                     : "text-opacity-[100%] duration-[1200ms] w-[20rem] h-[2rem] mt-[5rem]"
