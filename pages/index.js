@@ -87,11 +87,10 @@ export default function Home() {
                     +
                   </h2>
                   <p
-                    className={`absolute ease-slowEase transition-all duration-[2400ms] ${
-                      active
-                        ? "opacity-0 translate-y-4 mt-[5rem]"
-                        : "opacity-100 translate-y-0 mt-[5rem]"
-                    }`}
+                    className={`absolute ease-slowEase transition-all duration-[2400ms] ${active
+                      ? "opacity-0 translate-y-4 mt-[5rem]"
+                      : "opacity-100 translate-y-0 mt-[5rem]"
+                      }`}
                   >
                     {/* ¨This is where drop your item would go */}
                   </p>
@@ -99,7 +98,7 @@ export default function Home() {
               )}
             </div>
 
-            
+
 
             {/* <div className="flex flex-row gap-[1rem] text-my-gray">
               <button
@@ -116,6 +115,16 @@ export default function Home() {
                 Sign Up
               </button>
             </div> */}
+            <button
+              className={`py-2 px-4 rounded z-50 
+    ${droppedImage ? 'bg-blue-500 text-white' : 'bg-transparent text-blue-500 border border-blue-500'}
+    ${!droppedImage && 'cursor-not-allowed'}`}
+              onClick={handleUpload}
+              disabled={!droppedImage}
+            >
+              Upload
+            </button>
+
           </div>
         </div>
 
@@ -187,17 +196,17 @@ export default function Home() {
               altText="menu"
             />
 
-              {menuItems.map((item, index) => (
-                <FoodContainer
-                  key={index}
-                  vegImage={item.vegImage}
-                  Name={item.name}
-                  Price={item.price}
-                  Description={item.description}
-                  altText={item.altText}
-                />
-              ))}
-            </div>
+            {menuItems.map((item, index) => (
+              <FoodContainer
+                key={index}
+                vegImage={item.vegImage}
+                Name={item.name}
+                Price={item.price}
+                Description={item.description}
+                altText={item.altText}
+              />
+            ))}
+          </div>
         </section>
       </div>
     </div>
