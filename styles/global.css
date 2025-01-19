@@ -9,6 +9,10 @@ body {
   min-height: 100vh;
   margin: 0;
   padding: 0;
+  background: linear-gradient(to bottom, #000000, #000000, #111827);
+  min-height: 100vh;
+  margin: 0;
+  padding: 0;
 }
 
 @font-face {
@@ -93,9 +97,9 @@ h4 {
 }
 
 h5 {
-  font-size: 18px;
+  font-size: 20px;
   line-height: 36px;
-  font-weight: 400;
+  font-weight: 600;
 }
 
 h6 {
@@ -107,7 +111,7 @@ h6 {
 p {
   font-size: 16px;
   line-height: 24px;
-  font-weight: 100;
+  font-weight: 400;
   letter-spacing: 1px;
 }
 
