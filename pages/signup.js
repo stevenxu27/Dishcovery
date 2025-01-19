@@ -1,4 +1,3 @@
-import '@fontsource/inter';
 import * as React from 'react';
 import { CssVarsProvider } from '@mui/joy/styles';
 import Sheet from '@mui/joy/Sheet';
@@ -8,8 +7,9 @@ import FormLabel from '@mui/joy/FormLabel';
 import Input from '@mui/joy/Input';
 import Button from '@mui/joy/Button';
 import Link from '@mui/joy/Link';
+import { Box } from '@mui/joy';
 
-function Login() {
+function SignUp({ switchToLogin }) {
     return (
         <CssVarsProvider>
             <Sheet
@@ -32,14 +32,35 @@ function Login() {
                     <Typography level="h3" component="h1" sx={{ color: "white" }}>
                         Big Back Brochure
                     </Typography>
-                    <Typography level="body-sm" sx={{ color: "white" }}>your pocket guide to menus worldwide.</Typography>
+                    <Typography level="body-sm" sx={{ color: "white" }}>Sign up to join us!</Typography>
                 </div>
 
                 {/* form */}
+                <Box sx={{ display: 'flex', gap: 1 }}> {/* Added gap prop */}
+                    <FormControl sx={{ flex: 1 }}>
+                        <FormLabel sx={{ color: "white" }}>First Name</FormLabel>
+                        <Input
+                            name="firstName"
+                            type="text"
+                            placeholder="Enter your first name"
+                            sx={{ color: "#adb5bd" }}
+                        />
+                    </FormControl>
+
+                    <FormControl sx={{ flex: 1 }}>
+                        <FormLabel sx={{ color: "white" }}>Last Name</FormLabel>
+                        <Input
+                            name="lastName"
+                            type="text"
+                            placeholder="Enter your last name"
+                            sx={{ color: "#adb5bd" }}
+                        />
+                    </FormControl>
+                </Box>
+
                 <FormControl>
                     <FormLabel sx={{ color: "white" }}>Email</FormLabel>
                     <Input
-                        // html input attribute
                         name="email"
                         type="email"
                         placeholder="johndoe@email.com"
@@ -58,23 +79,21 @@ function Login() {
                 </FormControl>
 
                 <Button sx={{ mt: 1, boxShadow: '0 0 10px 5px rgba(255,255,255)' }}>
-                    Log in
+                    Sign up
                 </Button>
                 <Typography
-                    endDecorator={<Link href="/sign-up" sx={{color: "#2fa8fe"}}>Sign up</Link>}
+                    endDecorator={<Link onClick={switchToLogin} sx={{ color: "#2fa8fe", cursor: "pointer" }}>Log in</Link>}
                     fontSize="sm"
                     sx={{
                         alignSelf: 'center',
                         color: "white"
                     }}
                 >
-                    Don't have an account?
+                    Already have an account?
                 </Typography>
-
-
             </Sheet>
-        </CssVarsProvider >
+        </CssVarsProvider>
     );
 }
 
-export default Login;
+export default SignUp;
