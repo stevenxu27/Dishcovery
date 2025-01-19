@@ -89,18 +89,22 @@ export default function Home() {
 
   return (
     <div className="w-[100vw] h-[100vh] flex flex-col justify-start items-end  absolute">
-      <section className="fixed top-8 right-8 z-[100]">
+      <section className="fixed top-8 right-8 z-[999]">
         <div
           className={`rounded-[1rem] overflow-hidden transition-all duration-[800ms] ease-slowEase
           ${
             chatBot
-              ? "w-[24rem] h-[70vh] bg-gray-800/90 backdrop-blur-md shadow-xl"
-              : "w-[3.5rem] h-[3.5rem] bg-gray-800/50 hover:bg-gray-800/70 transition-colors"
+              ? "w-[24rem] h-[70vh] bg-gray-800/90 backdrop-blur-md shadow-xl translate-y-0 scale-100 opacity-100"
+              : "w-[3.5rem] h-[3.5rem] bg-gray-800/50 hover:bg-gray-800/70 translate-y-4 scale-95 opacity-0"
           }`}
         >
           <div
-            className={`flex flex-col h-full transition-all duration-[500ms] ease-slowEase
-              ${chatBot ? "opacity-100 p-6" : "opacity-0 p-0"}`}
+            className={`flex flex-col h-full transition-all duration-[800ms] ease-slowEase
+              ${
+                chatBot
+                  ? "opacity-100 p-6 translate-y-0"
+                  : "opacity-0 p-0 translate-y-4"
+              }`}
           >
             <div className="flex justify-between items-center mb-4">
               <h2 className="text-white text-xl font-semibold">
@@ -123,9 +127,12 @@ export default function Home() {
           </div>
 
           <button
-            className={`absolute ${
-              chatBot ? "top-4 right-4" : "inset-0 w-full h-full"
-            } transition-all duration-300 ease-slowEase hover:opacity-80`}
+            className={`absolute transition-all duration-[800ms] ease-slowEase hover:opacity-80
+              ${
+                chatBot
+                  ? "top-4 right-4 opacity-100 scale-100"
+                  : "inset-0 w-full h-full opacity-100 scale-100"
+              }`}
             onClick={() => setChatBot(!chatBot)}
           >
             {chatBot ? (
@@ -167,8 +174,8 @@ export default function Home() {
             )}
 
             <div
-              className={`group bg-gray-900 text-white w-fit bg-opacity-40 overflow-hidden 
-                transition-all duration-[800ms] ease-slowEase
+              className={`group bg-gray-900 text-white w-fit bg-opacity-[0.9] overflow-hidden z-[200]
+                transition-all duration-[800ms] ease-slowEase hover:bg-opacity-60
                 ${
                   isUploading
                     ? "bg-opacity-60 rounded-[2rem] py-[8rem] px-[8rem] hover:mt-[2rem]"

@@ -13,10 +13,10 @@ function Navbar() {
 
   return (
     <>
-      <div className="fixed bottom-8 right-8 flex flex-row items-center gap-[1rem] z-[30]">
+      <div className="fixed bottom-8 right-8 flex flex-row items-center gap-[0.5rem] lg:gap-[1rem] z-[30]">
         <div className="flex flex-row items-center">
           <div
-            className={`overflow-hidden transition-all duration-[800ms] ease-slowEase flex flex-row gap-[1rem]
+            className={`overflow-hidden transition-all duration-[800ms] ease-slowEase flex flex-row lg:gap-[1rem] gap-[0.25rem]
               ${
                 active
                   ? "w-[16rem] mr-4 opacity-100 translate-x-0 scale-100"
@@ -47,7 +47,7 @@ function Navbar() {
                     : "translate-y-4 opacity-0"
                 }`}
             />
-        </div>
+          </div>
 
           <button
             className={`rounded-full px-[2rem] py-[1rem] backdrop-blur-md text-white bg-gray-800 bg-opacity-[0.1]
@@ -81,7 +81,7 @@ function Navbar() {
       {/* Signup */}
       <div
         className={`fixed w-[100vw] h-[100vh] flex-col flex items-center bottom-0 justify-center animate-fadeIn ease-slowEase duration-[800ms] transition-all delay-[0ms]
-        ${showSignUp ? "z-[20]" : "z-[10]"}`}
+        ${showSignUp ? "z-[-20]" : "z-[-100]"}`}
       >
         <div
           className={`backdrop-blur-sm bg-white bg-opacity-[0.4] rounded-[1rem] h-fit w-fit flex flex-col gap-[1rem] px-[4rem] py-[2rem] slowEase duration-[800ms] transition-all
@@ -167,11 +167,15 @@ function Navbar() {
       {/* Login */}
       <div
         className={`fixed w-[100vw] h-[100vh] flex-col flex items-center top-0 justify-center animate-fadeIn ease-slowEase duration-[800ms] transition-all delay-[200ms]
-        ${showLogin ? "z-[20]" : "z-[10]"}`}
+        ${showLogin ? "z-[20]" : "z-[-10]"}`}
       >
         <div
           className={`backdrop-blur-sm bg-white bg-opacity-[0.4] rounded-[1rem] h-fit w-fit flex flex-col gap-[1rem] px-[4rem] py-[2rem] slowEase duration-[800ms] transition-all
-          ${showLogin ? "opacity-100" : "opacity-0 -translate-y-10"}`}
+          ${
+            showLogin
+              ? "opacity-100 z-[0]"
+              : "opacity-0 -translate-y-10 z-[-10]"
+          }`}
         >
           <button
             className="absolute top-0 right-0 p-[1rem] h-fit w-fit
