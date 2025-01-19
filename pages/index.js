@@ -4,22 +4,39 @@ import Login from "./login";
 import SignUp from "./signup";
 import FoodContainer from "../components/FoodContainer";
 
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 
 export default function Home() {
   const [active, setActive] = useState(false);
+  const [imageURL, setImageURL] = useState(null); 
+  const fileInputRef = useRef(null); // Reference to file input
 
   const handleUpload = async () => {
+    const fileInput = fileInputRef.current;
+    const file = fileInput?.files[0]; // Get the selected file
+  
+    if (!file) {
+      console.error("No file selected.");
+      return;
+    }
+  
+    // Create a FormData object to send the image as form data
+    const formData = new FormData();
+    formData.append("image", file);
+  
     try {
       const response = await fetch('http://localhost:8000/api/upload-menu', {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        }
+        body: formData, // Send formData with the image
       });
   
       const data = await response.json();
       console.log('Response from server:', data);
+
+      if (data?.imageUrl) {
+        setImageURL(data.imageUrl); // Set the uploaded image URL
+      }
+
     } catch (error) {
       console.error('Error uploading menu:', error);
     }
@@ -55,32 +72,34 @@ export default function Home() {
             onClick={() => setActive(!active)}
           >
             <div className="flex flex-col justify-center items-center relative">
-              <h2 className="text-[2.5rem] transition-transform duration-[800ms] ease-slowEase">
-                +
-              </h2>
-              <p
-                // className={`absolute ease-slowEase transition-all duration-[800ms] ${
-                //   active
-                //     ? "opacity-0 translate-y-4 mt-[10rem]"
-                //     : "opacity-100 translate-y-0 mt-[5rem]"
-                // }`}
-        
-                className={`absolute slowEase transition-all ${active
-                    ? " text-transparent duration-[400ms] w-[5rem] h-[1rem] mt-[10rem]"
-                    : "text-opacity-[100%] duration-[1200ms] w-[20rem] h-[2rem] mt-[5rem]"
-                  }`}
-              >
-                {/* ¨This is where drop your item would go */}
-              </p>
+              {imageURL ? (
+                <img
+                  src={imageURL}
+                  alt="Uploaded"
+                  className="w-[6rem] h-[6rem] object-cover rounded-full"
+                />
+              ) : (
+                <h2 className="text-[2.5rem] transition-transform duration-[800ms] ease-slowEase">+</h2>
+              )}
             </div>
           </button>
 
           <button
             className="bg-blue-500 text-white py-2 px-4 rounded z-50"
-            onClick={handleUpload}
+            onClick={() => fileInputRef.current?.click()} // Trigger file input click
           >
             Upload Menu
           </button>
+
+          <input
+            ref={fileInputRef} // Reference to the file input
+            type="file"
+            accept="image/*" // Restrict file selection to images
+            className="hidden"
+            onChange={handleUpload} // Handle file selection
+          />
+          
+
         </div>
       </div>
 
