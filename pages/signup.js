@@ -10,7 +10,7 @@ import Link from "@mui/joy/Link";
 import { Box } from "@mui/joy";
 import "@fontsource/inter";
 
-export default function SignUp({ onClose }) {
+export default function SignUp({ switchToLogin }) {
   return (
     <CssVarsProvider>
       <Sheet
@@ -88,7 +88,7 @@ export default function SignUp({ onClose }) {
         <Typography
           endDecorator={
             <Link
-              onClick={onClose}
+              onClick={switchToLogin}
               sx={{ color: "#2fa8fe", cursor: "pointer" }}
             >
               Log in
